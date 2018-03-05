@@ -1,11 +1,11 @@
 {
   "name": "trees-common",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "description": "",
   "main": "./dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel-cli --preset xxx",
+    "build": "rm -Rf dist && babel src --out-dir dist",
     "prepublish": "npm run build"
   },
   "repository": {
@@ -20,5 +20,16 @@
   "homepage": "https://github.com/BlueForestTrees/trees-common#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0"
+  },
+  "babel": {
+    "presets": [
+      "env",
+      "stage-3"
+    ]
+  },
+  "dependencies": {
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "lodash": "^4.17.5"
   }
 }

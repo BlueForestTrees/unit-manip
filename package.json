@@ -1,11 +1,11 @@
 {
   "name": "trees-common",
-  "version": "1.0.5",
+  "version": "1.0.10",
   "description": "",
   "main": "./dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -Rf dist && babel src --out-dir dist",
+    "build": "rimraf dist && babel src --out-dir dist",
     "prepublish": "npm run build"
   },
   "repository": {
@@ -19,7 +19,8 @@
   },
   "homepage": "https://github.com/BlueForestTrees/trees-common#readme",
   "devDependencies": {
-    "babel-cli": "^6.26.0"
+    "babel-cli": "^6.26.0",
+    "rimraf": "^2.6.2"
   },
   "babel": {
     "presets": [

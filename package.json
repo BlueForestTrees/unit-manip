@@ -4,7 +4,7 @@
   "description": "",
   "main": "./dist/index.js",
   "scripts": {
-    "test": "mocha --exit test --require babel-register",
+    "test": "mocha --exit --recursive test --require babel-register",
     "build": "rimraf dist && npm run test && babel src --out-dir dist",
     "prepublishOnly": "npm run build"
   },

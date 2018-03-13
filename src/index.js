@@ -1,29 +1,30 @@
 import _ from 'lodash';
+import Fraction from "fraction.js";
+
 
 let data = null;
 let units = null;
 let grandeurs = null;
 
-export const initUnits = grandeurs => {
+export const initUnits = initial => {
 
-    _.forEach(grandeurs, (units, grandeurName) => {
+    _.forEach(initial, (units, grandeurName) => {
         _.forEach(units, unit => unit.grandeur = grandeurName);
-        grandeurs[grandeurName] = _.sortBy(units, 'coef');
+        initial[grandeurName] = _.sortBy(units, 'coef');
     });
 
-    units = _.chain(grandeurs).values().flatten().keyBy('shortname').value();
+    units = _.chain(initial).values().flatten().keyBy('shortname').value();
 
-    this.grandeurs = grandeurs;
+    grandeurs = initial;
 
     data = {
         units,
-        grandeurs,
-        grandeursKeys: Object.keys(grandeurs),
+        grandeurs: initial,
+        grandeursKeys: Object.keys(initial),
         shortnames: Object.keys(units)
     };
 
 };
-
 
 export const getUnits = () => data.units;
 export const getGrandeurs = () => data.grandeurs;
@@ -99,3 +100,28 @@ export const bestQuantity = (quantity) => {
 
     return {qt: bestRound(quantity.qt), unit: quantity.unit};
 };
+
+export const grandeurOfUnitShortname = shortname => grandeurByName(unit(shortname).grandeur);
+export const grandeurByName = grandeurName => ({[grandeurName]: getGrandeurs()[grandeurName]});
+
+
+const precisionRound = (number, precision) => {
+    const factor = Math.pow(10, precision);
+    return Math.round(number * factor) / factor;
+};
+export const bestRound = v =>
+    v < 1 ? precisionRound(v,3)
+        :
+        v < 10 ? precisionRound(v,2)
+            :
+            v < 100 ? precisionRound(v,1)
+                :
+                Math.round(v);
+
+export const calcCoef = (axis, leftDenorm, rightDenorm) => {
+    const leftAxis = _.find(leftDenorm, {axis});
+    const rightAxis = _.find(rightDenorm, {axis});
+
+    return qtUnitCoef(leftAxis, rightAxis);
+};
+export const baseQt = quantity => quantity.qt * coef(quantity.unit);

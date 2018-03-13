@@ -3,11 +3,23 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.bestQuantity = exports.toBaseQuantity = exports.qtUnitCoef = exports.unitCoef = exports.sameGrandeur = exports.grandeur = exports.unitlongname = exports.base = exports.coef = exports.unit = exports.getShortnames = exports.getGrandeursKeys = exports.getGrandeurs = exports.getUnits = exports.initUnits = undefined;
+exports.baseQt = exports.calcCoef = exports.bestRound = exports.grandeurByName = exports.grandeurOfUnitShortname = exports.bestQuantity = exports.toBaseQuantity = exports.qtUnitCoef = exports.unitCoef = exports.sameGrandeur = exports.grandeur = exports.unitlongname = exports.base = exports.coef = exports.unit = exports.getShortnames = exports.getGrandeursKeys = exports.getGrandeurs = exports.getUnits = exports.initUnits = undefined;
+
+var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _keys = require('babel-runtime/core-js/object/keys');
+
+var _keys2 = _interopRequireDefault(_keys);
 
 var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
+
+var _fraction = require('fraction.js');
+
+var _fraction2 = _interopRequireDefault(_fraction);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15,24 +27,24 @@ var data = null;
 var units = null;
 var grandeurs = null;
 
-var initUnits = exports.initUnits = function initUnits(grandeurs) {
+var initUnits = exports.initUnits = function initUnits(initial) {
 
-    _lodash2.default.forEach(grandeurs, function (units, grandeurName) {
+    _lodash2.default.forEach(initial, function (units, grandeurName) {
         _lodash2.default.forEach(units, function (unit) {
             return unit.grandeur = grandeurName;
         });
-        grandeurs[grandeurName] = _lodash2.default.sortBy(units, 'coef');
+        initial[grandeurName] = _lodash2.default.sortBy(units, 'coef');
     });
 
-    units = _lodash2.default.chain(grandeurs).values().flatten().keyBy('shortname').value();
+    units = _lodash2.default.chain(initial).values().flatten().keyBy('shortname').value();
 
-    undefined.grandeurs = grandeurs;
+    grandeurs = initial;
 
     data = {
         units: units,
-        grandeurs: grandeurs,
-        grandeursKeys: Object.keys(grandeurs),
-        shortnames: Object.keys(units)
+        grandeurs: initial,
+        grandeursKeys: (0, _keys2.default)(initial),
+        shortnames: (0, _keys2.default)(units)
     };
 };
 
@@ -80,14 +92,14 @@ var sameGrandeur = exports.sameGrandeur = function sameGrandeur(leftShortname, r
  * @returns le coef pour passer d'une unité à l'autre. undefined si les unités ne sont pas compatibles.
  */
 var unitCoef = exports.unitCoef = function unitCoef(leftShortname, rightShortname) {
-    return sameGrandeur(leftShortname, rightShortname) ? Fraction(unit(leftShortname).coef).div(unit(rightShortname).coef).valueOf() : undefined;
+    return sameGrandeur(leftShortname, rightShortname) ? (0, _fraction2.default)(unit(leftShortname).coef).div(unit(rightShortname).coef).valueOf() : undefined;
 };
 
 /**
  * @returns le coef pour passer d'une quantité à l'autre. undefined si les unités ne sont pas compatibles.
  */
 var qtUnitCoef = exports.qtUnitCoef = function qtUnitCoef(leftQuantity, rightQuantity) {
-    return leftQuantity && rightQuantity ? Fraction(leftQuantity.qt).div(rightQuantity.qt).mul(unitCoef(leftQuantity.unit, rightQuantity.unit)).valueOf() : undefined;
+    return leftQuantity && rightQuantity ? (0, _fraction2.default)(leftQuantity.qt).div(rightQuantity.qt).mul(unitCoef(leftQuantity.unit, rightQuantity.unit)).valueOf() : undefined;
 };
 
 /**
@@ -125,4 +137,29 @@ var bestQuantity = exports.bestQuantity = function bestQuantity(quantity) {
     }
 
     return { qt: bestRound(quantity.qt), unit: quantity.unit };
+};
+
+var grandeurOfUnitShortname = exports.grandeurOfUnitShortname = function grandeurOfUnitShortname(shortname) {
+    return grandeurByName(unit(shortname).grandeur);
+};
+var grandeurByName = exports.grandeurByName = function grandeurByName(grandeurName) {
+    return (0, _defineProperty3.default)({}, grandeurName, getGrandeurs()[grandeurName]);
+};
+
+var precisionRound = function precisionRound(number, precision) {
+    var factor = Math.pow(10, precision);
+    return Math.round(number * factor) / factor;
+};
+var bestRound = exports.bestRound = function bestRound(v) {
+    return v < 1 ? precisionRound(v, 3) : v < 10 ? precisionRound(v, 2) : v < 100 ? precisionRound(v, 1) : Math.round(v);
+};
+
+var calcCoef = exports.calcCoef = function calcCoef(axis, leftDenorm, rightDenorm) {
+    var leftAxis = _lodash2.default.find(leftDenorm, { axis: axis });
+    var rightAxis = _lodash2.default.find(rightDenorm, { axis: axis });
+
+    return qtUnitCoef(leftAxis, rightAxis);
+};
+var baseQt = exports.baseQt = function baseQt(quantity) {
+    return quantity.qt * coef(quantity.unit);
 };

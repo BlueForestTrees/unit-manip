@@ -1,12 +1,13 @@
 {
   "name": "trees-common",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "description": "",
   "main": "./dist/index.js",
   "scripts": {
     "test": "mocha --exit --recursive test --require babel-register",
     "build": "rimraf dist && npm run test && babel src --out-dir dist",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "npmpublish": "npm publish"
   },
   "repository": {
     "type": "git",

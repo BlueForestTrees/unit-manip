@@ -1,11 +1,12 @@
 {
-  "name": "trees-common",
-  "version": "1.0.21",
+  "name": "trees-units",
+  "version": "1.0.0",
   "description": "",
-  "main": "./dist/index.js",
+  "main": "index.js",
+  "files": ["index.js"],
   "scripts": {
     "test": "mocha --exit --recursive test --require babel-register",
-    "build": "rimraf dist && npm run test && babel src --out-dir dist",
+    "build": "rimraf index.js && npm run test && babel src --out-dir .",
     "prepublishOnly": "npm run build",
     "npmpublish": "npm publish"
   },

@@ -1,3 +1,5 @@
+import Fraction from "fraction.js";
+
 let data = null;
 let units = [];
 let grandeurs = null;

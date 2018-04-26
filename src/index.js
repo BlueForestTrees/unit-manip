@@ -1,7 +1,7 @@
 import Fraction from "fraction.js";
 
 let data = null;
-let units = [];
+let units = {};
 let grandeurs = null;
 
 export const initUnits = initial => {

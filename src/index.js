@@ -1,15 +1,14 @@
-import Fraction from "fraction.js";
-
 let data = null;
 let units = [];
 let grandeurs = null;
 
 export const initUnits = initial => {
-
+    const grandeursKeys = [];
     const nbGrandeurs = initial.length;
     for (let g = 0; g < nbGrandeurs; g++) {
         const grandeur = initial[g];
         const nbUnits = grandeur.units.length;
+        grandeursKeys.push(grandeur.key);
         for (let u = 0; u < nbUnits; u++) {
             const unit = grandeur.units[u];
             unit.grandeur = grandeur.key;
@@ -23,7 +22,7 @@ export const initUnits = initial => {
     data = {
         units,
         grandeurs: initial,
-        grandeursKeys: Object.keys(initial),
+        grandeursKeys,
         shortnames: Object.keys(units)
     };
 

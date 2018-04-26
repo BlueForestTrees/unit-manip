@@ -10,9 +10,55 @@ beforeEach(async () => {
 
 describe('TU Init', function () {
 
-    it('load grandeurs & units', async function () {
-        const message = `${getShortnames().length} unités dans ${getGrandeursKeys().length} grandeurs`;
-        message.should.equal("32 unités dans 9 grandeurs");
+    it('getShortnames ok', async function () {
+        getShortnames().should.deep.equal([
+            "J",
+            "ws",
+            "cal",
+            "wh",
+            "kwh",
+            "kcal",
+            "Mcal",
+            "μmol",
+            "mmol",
+            "mol",
+            "count",
+            "m3",
+            "L",
+            "goutte",
+            "sec",
+            "min",
+            "h",
+            "j",
+            "mois",
+            "an",
+            "mg",
+            "g",
+            "kg",
+            "t",
+            "Mt",
+            "m2",
+            "hec",
+            "mm",
+            "cm",
+            "m",
+            "km",
+            "€",
+        ]);
+    });
+
+    it('getGrandeursKeys', async function () {
+        getGrandeursKeys().should.deep.equal([
+            "Ener",
+            "Dens",
+            "Nomb",
+            "Volu",
+            "Duré",
+            "Mass",
+            "Surf",
+            "Long",
+            "Prix",
+        ]);
     });
 
 });

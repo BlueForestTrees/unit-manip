@@ -1,5 +1,3 @@
-import Fraction from "fraction.js";
-
 let data = null;
 let units = [];
 let grandeurs = null;
@@ -11,6 +9,7 @@ export const initUnits = initial => {
         const grandeur = initial[g];
         const nbUnits = grandeur.units.length;
         grandeursKeys.push(grandeur.key);
+        grandeur.units.sort((a, b) => a.coef - b.coef);
         for (let u = 0; u < nbUnits; u++) {
             const unit = grandeur.units[u];
             unit.grandeur = grandeur.key;
@@ -112,7 +111,10 @@ export const grandeurFromShortname = shortname => {
     return u && find(grandeurs, "key", u.grandeur);
 };
 export const bestQuantity = (quantity) => {
-    const units = grandeurFromShortname(quantity.unit).units;
+    const grandeur = grandeurFromShortname(quantity.unit);
+    if (!grandeur) return {qt: quantity.qt, unit: quantity.unit + "!"};
+
+    const units = grandeur.units;
     const currentUnit = unit(quantity.unit);
     const currentUnitIndex = findIndex(units, "shortname", quantity.unit);
     if (currentUnitIndex < units.length - 1) {

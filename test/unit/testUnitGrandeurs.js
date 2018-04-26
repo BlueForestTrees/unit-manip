@@ -122,6 +122,9 @@ describe('TU Grandeurs', function () {
     });
 
     describe('best quantity Masse', function () {
+        it('500uio => null', function () {
+            expect(bestQuantity({qt: 500, unit: "uio"})).to.deep.equal({qt: 500, unit: "uio!"});
+        });
         it('500mg => 500mg', function () {
             expect(bestQuantity({qt: 500, unit: "mg"})).to.deep.equal({qt: 500, unit: "mg"});
         });
@@ -143,6 +146,9 @@ describe('TU Grandeurs', function () {
         it('1999999999mg => 2t', function () {
             expect(bestQuantity({qt: 1999999999, unit: "mg"})).to.deep.equal({qt: 2, unit: "t"});
         });
+        it('0.51m3 => ', function () {
+            expect(bestQuantity({qt: 0.51, unit: "m3"})).to.deep.equal({qt: 0.51, unit: "m3"});
+        });
         it('0.001g => 1mg', function () {
             expect(bestQuantity({qt: 0.001, unit: "g"})).to.deep.equal({qt: 1, unit: "mg"});
         });
@@ -160,6 +166,9 @@ describe('TU Grandeurs', function () {
         });
         it('1000g => 1kg', function () {
             expect(bestQuantity({qt: 1000, unit: "g"})).to.deep.equal({qt: 1, unit: "kg"});
+        });
+        it('5000g => 5kg', function () {
+            expect(bestQuantity({qt: 5000, unit: "g"})).to.deep.equal({qt: 5, unit: "kg"});
         });
         it('1010g => 1.01kg', function () {
             expect(bestQuantity({qt: 1010, unit: "g"})).to.deep.equal({qt: 1.01, unit: "kg"});

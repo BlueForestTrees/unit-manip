@@ -5,6 +5,7 @@ let units = {};
 let grandeurs = null;
 
 export const initUnits = initial => {
+    initial.sort((a, b) => a.key < b.key ? -1 : a.key > b.key ? 1 : 0);
     const grandeursKeys = [];
     const nbGrandeurs = initial.length;
     for (let g = 0; g < nbGrandeurs; g++) {
@@ -19,7 +20,6 @@ export const initUnits = initial => {
         }
 
     }
-
     grandeurs = initial;
 
     data = {

@@ -12,6 +12,15 @@ describe('TU Init', function () {
 
     it('getShortnames ok', async function () {
         getShortnames().should.deep.equal([
+            "μmol",
+            "mmol",
+            "mol",
+            "sec",
+            "min",
+            "h",
+            "j",
+            "mois",
+            "an",
             "J",
             "ws",
             "cal",
@@ -19,45 +28,36 @@ describe('TU Init', function () {
             "kcal",
             "kwh",
             "Mcal",
-            "μmol",
-            "mmol",
-            "mol",
-            "count",
-            "L",
-            "m3",
-            "goutte",
-            "sec",
-            "min",
-            "h",
-            "j",
-            "mois",
-            "an",
+            "mm",
+            "cm",
+            "m",
+            "km",
             "mg",
             "g",
             "kg",
             "t",
             "Mt",
+            "count",
+            "€",
             "m2",
             "hec",
-            "mm",
-            "cm",
-            "m",
-            "km",
-            "€",
+            "L",
+            "m3",
+            "goutte"
         ]);
     });
 
     it('getGrandeursKeys', async function () {
         getGrandeursKeys().should.deep.equal([
-            "Ener",
             "Dens",
-            "Nomb",
-            "Volu",
             "Duré",
-            "Mass",
-            "Surf",
+            "Ener",
             "Long",
+            "Mass",
+            "Nomb",
             "Prix",
+            "Surf",
+            "Volu"
         ]);
     });
 

@@ -1,6 +1,7 @@
 import {expect} from 'chai';
 import {mockGrandeurs} from "../mock";
-import {bestQuantity, coef, qtUnitCoef, toBaseQuantity, unit, unitCoef} from "../../src/index";
+import {bestQuantity, coef, grandeur, qtUnitCoef, toBaseQuantity, unit, unitCoef} from "../../src/index";
+import {grandeurFromShortname, sameGrandeur} from "../../src";
 
 beforeEach(async () => {
     await mockGrandeurs();
@@ -8,6 +9,26 @@ beforeEach(async () => {
 
 describe('TU Grandeurs', function () {
 
+    describe('sameGrandeur', function () {
+        it('m m ok', function () {
+            expect(sameGrandeur("m", "m")).to.be.true;
+        });
+        it('m km ok', function () {
+            expect(sameGrandeur("m", "km")).to.be.true;
+        });
+        it('m L ko', function () {
+            expect(sameGrandeur("m", "L")).to.be.false;
+        })
+    });
+
+    describe('grandeur', function () {
+        it('kg ok', function () {
+            expect(grandeur("kg")).to.equal("Mass");
+        });
+        it('zz null', function () {
+            expect(grandeur("zz")).to.be.null;
+        });
+    });
 
     describe('unit', function () {
         it('m ok', function () {
@@ -88,6 +109,15 @@ describe('TU Grandeurs', function () {
         });
         it('10g => 10g', function () {
             expect(toBaseQuantity({qt: 10, unit: "g"})).to.deep.equal({qt: 10, unit: "g"});
+        });
+    });
+
+    describe('unitsFromShortname', function () {
+        it('kg ok', function () {
+            expect(grandeurFromShortname("kg").key).to.equal("Mass");
+        });
+        it('zz ok', function () {
+            expect(grandeurFromShortname("zz")).to.be.null;
         });
     });
 

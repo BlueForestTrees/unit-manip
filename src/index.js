@@ -1,19 +1,22 @@
-import _ from 'lodash';
 import Fraction from "fraction.js";
 
-
 let data = null;
-let units = null;
+let units = [];
 let grandeurs = null;
 
 export const initUnits = initial => {
 
-    _.forEach(initial, (units, grandeurName) => {
-        _.forEach(units, unit => unit.grandeur = grandeurName);
-        initial[grandeurName] = _.sortBy(units, 'coef');
-    });
+    const nbGrandeurs = initial.length;
+    for (let g = 0; g < nbGrandeurs; g++) {
+        const grandeur = initial[g];
+        const nbUnits = grandeur.units.length;
+        for (let u = 0; u < nbUnits; u++) {
+            const unit = grandeur.units[u];
+            unit.grandeur = grandeur.key;
+            units[unit.shortname] = unit;
+        }
 
-    units = _.chain(initial).values().flatten().keyBy('shortname').value();
+    }
 
     grandeurs = initial;
 
@@ -26,18 +29,43 @@ export const initUnits = initial => {
 
 };
 
+const find = (array, key, value) => {
+    const length = array.length;
+    for (let i = 0; i < length; i++) {
+        const item = array[i];
+        if (item[key] === value) {
+            return item;
+        }
+    }
+};
+const findIndex = (array, key, value) => {
+    const length = array.length;
+    for (let i = 0; i < length; i++) {
+        const match = array[i][key] === value;
+        if (match) {
+            return i;
+        }
+    }
+};
+
 export const getUnits = () => data.units;
 export const getGrandeurs = () => data.grandeurs;
 export const getGrandeursKeys = () => data.grandeursKeys;
 export const getShortnames = () => data.shortnames;
 
 
-export const unit = shortname => _.has(units, shortname) ? units[shortname] : null;
+export const unit = shortname => units.hasOwnProperty(shortname) ? units[shortname] : null;
 export const coef = shortname => unit(shortname).coef;
-export const base = grandeur => _.find(grandeurs[grandeur], {coef: 1});
+export const base = grandeur => {
+    let g = find(grandeurs, "key", grandeur);
+    return g && find(g.units, "coef", 1);
+};
 
 export const unitlongname = shortname => unit(shortname).name;
-export const grandeur = shortname => unit(shortname).grandeur;
+export const grandeur = shortname => {
+    const u = unit(shortname);
+    return u && u.grandeur;
+};
 
 /**
  * @returns faux, ou vrai ssi les unités sont valides et de la même grandeur
@@ -78,11 +106,14 @@ export const toBaseQuantity = quantity => {
     };
 };
 
-const unitsFromShortname = shortname => grandeurs[unit(shortname).grandeur];
+export const grandeurFromShortname = shortname => {
+    const u = unit(shortname);
+    return u && find(grandeurs, "key", u.grandeur);
+};
 export const bestQuantity = (quantity) => {
-    const units = unitsFromShortname(quantity.unit);
+    const units = grandeurFromShortname(quantity.unit).units;
     const currentUnit = unit(quantity.unit);
-    const currentUnitIndex = _.findIndex(units, {shortname: quantity.unit});
+    const currentUnitIndex = findIndex(units, "shortname", quantity.unit);
     if (currentUnitIndex < units.length - 1) {
         const upperUnit = units[currentUnitIndex + 1];
         const uppingCoef = upperUnit.coef / currentUnit.coef;
@@ -110,17 +141,17 @@ const precisionRound = (number, precision) => {
     return Math.round(number * factor) / factor;
 };
 export const bestRound = v =>
-    v < 1 ? precisionRound(v,3)
+    v < 1 ? precisionRound(v, 3)
         :
-        v < 10 ? precisionRound(v,2)
+        v < 10 ? precisionRound(v, 2)
             :
-            v < 100 ? precisionRound(v,1)
+            v < 100 ? precisionRound(v, 1)
                 :
                 Math.round(v);
 
 export const calcCoef = (axis, leftDenorm, rightDenorm) => {
-    const leftAxis = _.find(leftDenorm, {axis});
-    const rightAxis = _.find(rightDenorm, {axis});
+    const leftAxis = find(leftDenorm, "axis", axis);
+    const rightAxis = find(rightDenorm, "axis", axis);
 
     return qtUnitCoef(leftAxis, rightAxis);
 };

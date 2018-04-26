@@ -1,42 +1,40 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.baseQt = exports.calcCoef = exports.bestRound = exports.grandeurByName = exports.grandeurOfUnitShortname = exports.bestQuantity = exports.toBaseQuantity = exports.qtUnitCoef = exports.unitCoef = exports.sameGrandeur = exports.grandeur = exports.unitlongname = exports.base = exports.coef = exports.unit = exports.getShortnames = exports.getGrandeursKeys = exports.getGrandeurs = exports.getUnits = exports.initUnits = undefined;
+exports.baseQt = exports.calcCoef = exports.bestRound = exports.grandeurByName = exports.grandeurOfUnitShortname = exports.bestQuantity = exports.grandeurFromShortname = exports.toBaseQuantity = exports.qtUnitCoef = exports.unitCoef = exports.sameGrandeur = exports.grandeur = exports.unitlongname = exports.base = exports.coef = exports.unit = exports.getShortnames = exports.getGrandeursKeys = exports.getGrandeurs = exports.getUnits = exports.initUnits = undefined;
 
-var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
+var _defineProperty2 = require("babel-runtime/helpers/defineProperty");
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-var _keys = require('babel-runtime/core-js/object/keys');
+var _keys = require("babel-runtime/core-js/object/keys");
 
 var _keys2 = _interopRequireDefault(_keys);
 
-var _lodash = require('lodash');
-
-var _lodash2 = _interopRequireDefault(_lodash);
-
-var _fraction = require('fraction.js');
+var _fraction = require("fraction.js");
 
 var _fraction2 = _interopRequireDefault(_fraction);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var data = null;
-var units = null;
+var units = [];
 var grandeurs = null;
 
 var initUnits = exports.initUnits = function initUnits(initial) {
 
-    _lodash2.default.forEach(initial, function (units, grandeurName) {
-        _lodash2.default.forEach(units, function (unit) {
-            return unit.grandeur = grandeurName;
-        });
-        initial[grandeurName] = _lodash2.default.sortBy(units, 'coef');
-    });
-
-    units = _lodash2.default.chain(initial).values().flatten().keyBy('shortname').value();
+    var nbGrandeurs = initial.length;
+    for (var g = 0; g < nbGrandeurs; g++) {
+        var _grandeur = initial[g];
+        var nbUnits = _grandeur.units.length;
+        for (var u = 0; u < nbUnits; u++) {
+            var _unit = _grandeur.units[u];
+            _unit.grandeur = _grandeur.key;
+            units[_unit.shortname] = _unit;
+        }
+    }
 
     grandeurs = initial;
 
@@ -46,6 +44,25 @@ var initUnits = exports.initUnits = function initUnits(initial) {
         grandeursKeys: (0, _keys2.default)(initial),
         shortnames: (0, _keys2.default)(units)
     };
+};
+
+var find = function find(array, key, value) {
+    var length = array.length;
+    for (var i = 0; i < length; i++) {
+        var item = array[i];
+        if (item[key] === value) {
+            return item;
+        }
+    }
+};
+var findIndex = function findIndex(array, key, value) {
+    var length = array.length;
+    for (var i = 0; i < length; i++) {
+        var match = array[i][key] === value;
+        if (match) {
+            return i;
+        }
+    }
 };
 
 var getUnits = exports.getUnits = function getUnits() {
@@ -62,20 +79,22 @@ var getShortnames = exports.getShortnames = function getShortnames() {
 };
 
 var unit = exports.unit = function unit(shortname) {
-    return _lodash2.default.has(units, shortname) ? units[shortname] : null;
+    return units.hasOwnProperty(shortname) ? units[shortname] : null;
 };
 var coef = exports.coef = function coef(shortname) {
     return unit(shortname).coef;
 };
 var base = exports.base = function base(grandeur) {
-    return _lodash2.default.find(grandeurs[grandeur], { coef: 1 });
+    var g = find(grandeurs, "key", grandeur);
+    return g && find(g.units, "coef", 1);
 };
 
 var unitlongname = exports.unitlongname = function unitlongname(shortname) {
     return unit(shortname).name;
 };
 var grandeur = exports.grandeur = function grandeur(shortname) {
-    return unit(shortname).grandeur;
+    var u = unit(shortname);
+    return u && u.grandeur;
 };
 
 /**
@@ -114,13 +133,14 @@ var toBaseQuantity = exports.toBaseQuantity = function toBaseQuantity(quantity) 
     };
 };
 
-var unitsFromShortname = function unitsFromShortname(shortname) {
-    return grandeurs[unit(shortname).grandeur];
+var grandeurFromShortname = exports.grandeurFromShortname = function grandeurFromShortname(shortname) {
+    var u = unit(shortname);
+    return u && find(grandeurs, "key", u.grandeur);
 };
 var bestQuantity = exports.bestQuantity = function bestQuantity(quantity) {
-    var units = unitsFromShortname(quantity.unit);
+    var units = grandeurFromShortname(quantity.unit).units;
     var currentUnit = unit(quantity.unit);
-    var currentUnitIndex = _lodash2.default.findIndex(units, { shortname: quantity.unit });
+    var currentUnitIndex = findIndex(units, "shortname", quantity.unit);
     if (currentUnitIndex < units.length - 1) {
         var upperUnit = units[currentUnitIndex + 1];
         var uppingCoef = upperUnit.coef / currentUnit.coef;
@@ -155,8 +175,8 @@ var bestRound = exports.bestRound = function bestRound(v) {
 };
 
 var calcCoef = exports.calcCoef = function calcCoef(axis, leftDenorm, rightDenorm) {
-    var leftAxis = _lodash2.default.find(leftDenorm, { axis: axis });
-    var rightAxis = _lodash2.default.find(rightDenorm, { axis: axis });
+    var leftAxis = find(leftDenorm, "axis", axis);
+    var rightAxis = find(rightDenorm, "axis", axis);
 
     return qtUnitCoef(leftAxis, rightAxis);
 };

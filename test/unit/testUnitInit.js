@@ -1,6 +1,7 @@
 import chai from 'chai';
 import {getGrandeursKeys, getShortnames, getUnits} from "../../src/index";
 import {mockGrandeurs} from "../mock";
+import {getGrandeur} from "../../src";
 
 chai.should();
 
@@ -59,6 +60,36 @@ describe('TU Init', function () {
             "Surf",
             "Volu"
         ]);
+    });
+
+    it('getGrandeur ok', function(){
+        getGrandeur("Dens").should.deep.equal({
+            "key": "Dens",
+            "label": "Densité (mol, mmol...)",
+            "units": [
+                {
+                    "coef": 0.000001,
+                    "grandeur": "Dens",
+                    "name": "micro-mole",
+                    "shortname": "μmol"
+                },
+                {
+                    "coef": 0.001,
+                    "grandeur": "Dens",
+                    "name": "milli-mole",
+                    "shortname": "mmol"
+                },
+                {
+                    "coef": 1,
+                    "grandeur": "Dens",
+                    "name": "mole",
+                    "shortname": "mol"
+                }
+            ]
+        });
+    });
+    it('getGrandeur null', function(){
+        (!getGrandeur("sdlfgij")).should.be.true;
     });
 
     it('getUnits', async function () {

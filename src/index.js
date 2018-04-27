@@ -51,6 +51,7 @@ const findIndex = (array, key, value) => {
 };
 
 export const getUnits = () => data.units;
+export const getGrandeur = key => find(data.grandeurs, "key", key);
 export const getGrandeurs = () => data.grandeurs;
 export const getGrandeursKeys = () => data.grandeursKeys;
 export const getShortnames = () => data.shortnames;

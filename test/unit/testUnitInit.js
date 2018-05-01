@@ -1,7 +1,7 @@
 import chai from 'chai';
 import {getGrandeursKeys, getShortnames, getUnits} from "../../src/index";
 import {mockGrandeurs} from "../mock";
-import {getGrandeur} from "../../src";
+import {getGrandeur, getGrandeurs} from "../../src";
 
 chai.should();
 
@@ -62,7 +62,7 @@ describe('TU Init', function () {
         ]);
     });
 
-    it('getGrandeur ok', function(){
+    it('getGrandeur ok', function () {
         getGrandeur("Dens").should.deep.equal({
             "key": "Dens",
             "label": "Densité (mol, mmol...)",
@@ -88,7 +88,7 @@ describe('TU Init', function () {
             ]
         });
     });
-    it('getGrandeur null', function(){
+    it('getGrandeur null', function () {
         (!getGrandeur("sdlfgij")).should.be.true;
     });
 
@@ -287,6 +287,10 @@ describe('TU Init', function () {
                 "shortname": "€",
             }
         });
+    });
+
+    it('getGrandeurs', function () {
+        getGrandeurs().map(g => g.key).should.deep.equal(["Dens","Duré","Ener","Long","Mass","Nomb","Prix","Surf","Volu"])
     });
 
 });

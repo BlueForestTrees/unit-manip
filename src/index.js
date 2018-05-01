@@ -1,15 +1,14 @@
 import Fraction from "fraction.js";
 
-let data = null;
-let units = {};
-let grandeurs = null;
+let ctx = null;
 
-export const initUnits = initial => {
-    initial.sort((a, b) => a.key < b.key ? -1 : a.key > b.key ? 1 : 0);
+export const initUnits = grandeurs => {
+    grandeurs.sort((a, b) => a.key < b.key ? -1 : a.key > b.key ? 1 : 0);
     const grandeursKeys = [];
-    const nbGrandeurs = initial.length;
+    const units = {};
+    const nbGrandeurs = grandeurs.length;
     for (let g = 0; g < nbGrandeurs; g++) {
-        const grandeur = initial[g];
+        const grandeur = grandeurs[g];
         const nbUnits = grandeur.units.length;
         grandeursKeys.push(grandeur.key);
         grandeur.units.sort((a, b) => a.coef - b.coef);
@@ -18,13 +17,11 @@ export const initUnits = initial => {
             unit.grandeur = grandeur.key;
             units[unit.shortname] = unit;
         }
-
     }
-    grandeurs = initial;
 
-    data = {
+    ctx = {
         units,
-        grandeurs: initial,
+        grandeurs,
         grandeursKeys,
         shortnames: Object.keys(units)
     };
@@ -50,17 +47,17 @@ const findIndex = (array, key, value) => {
     }
 };
 
-export const getUnits = () => data.units;
-export const getGrandeur = key => find(data.grandeurs, "key", key);
-export const getGrandeurs = () => data.grandeurs;
-export const getGrandeursKeys = () => data.grandeursKeys;
-export const getShortnames = () => data.shortnames;
+export const getUnits = () => ctx.units;
+export const getGrandeur = key => find(ctx.grandeurs, "key", key);
+export const getGrandeurs = () => ctx.grandeurs;
+export const getGrandeursKeys = () => ctx.grandeursKeys;
+export const getShortnames = () => ctx.shortnames;
 
 
-export const unit = shortname => units.hasOwnProperty(shortname) ? units[shortname] : null;
+export const unit = shortname => ctx.units.hasOwnProperty(shortname) ? ctx.units[shortname] : null;
 export const coef = shortname => unit(shortname).coef;
 export const base = grandeur => {
-    let g = find(grandeurs, "key", grandeur);
+    let g = find(ctx.grandeurs, "key", grandeur);
     return g && find(g.units, "coef", 1);
 };
 
@@ -111,7 +108,7 @@ export const toBaseQuantity = quantity => {
 
 export const grandeurFromShortname = shortname => {
     const u = unit(shortname);
-    return u && find(grandeurs, "key", u.grandeur);
+    return u && find(ctx.grandeurs, "key", u.grandeur);
 };
 export const bestQuantity = (quantity) => {
     const grandeur = grandeurFromShortname(quantity.unit);

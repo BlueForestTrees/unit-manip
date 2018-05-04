@@ -62,6 +62,11 @@ export const base = grandeur => {
 };
 
 export const unitlongname = shortname => unit(shortname).name;
+/**
+ * le code grandeur du code unité ou null
+ * @param shortname
+ * @returns {*}
+ */
 export const grandeur = shortname => {
     const u = unit(shortname);
     return u && u.grandeur;
@@ -152,10 +157,4 @@ export const bestRound = v =>
                 :
                 Math.round(v);
 
-export const calcCoef = (axis, leftDenorm, rightDenorm) => {
-    const leftAxis = find(leftDenorm, "axis", axis);
-    const rightAxis = find(rightDenorm, "axis", axis);
-
-    return qtUnitCoef(leftAxis, rightAxis);
-};
 export const baseQt = quantity => quantity.qt * coef(quantity.unit);

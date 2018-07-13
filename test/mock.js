@@ -1,4 +1,4 @@
-import {initUnits} from "../src";
+import {initUnits} from "../";
 
 export const mockGrandeurs = () => loadUnitsData().then(initUnits);
 

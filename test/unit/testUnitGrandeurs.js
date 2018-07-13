@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 import {mockGrandeurs} from "../mock";
-import {bestQuantity, coef, grandeur, qtUnitCoef, toBaseQuantity, unit, unitCoef} from "../../src/index";
-import {grandeurFromShortname, sameGrandeur} from "../../src";
+import {bestQuantity, coef, grandeur, qtUnitCoef, toBaseQuantity, unit, unitCoef} from "../..";
+import {grandeurFromShortname, sameGrandeur} from "../..";
 
 beforeEach(async () => {
     await mockGrandeurs();

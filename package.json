@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "files": [
-    "index.js"
+    "dist"
   ],
   "scripts": {
     "init": "npm install yarn && yarn",
     "test": "mocha --exit --recursive test --require babel-register",
-    "build": "rimraf index.js && npm run test && babel src --out-dir .",
+    "build": "rimraf index.js && npm run test && babel",
     "prepublishOnly": "npm version patch && npm run build",
     "npmpublish": "npm publish"
   },

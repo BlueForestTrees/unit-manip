@@ -86,9 +86,12 @@ export const sameGrandeur = (leftShortname, rightShortname) => {
 /**
  * @returns le coef pour passer d'une unité à l'autre. undefined si les unités ne sont pas compatibles.
  */
-export const unitCoef = (leftShortname, rightShortname) => sameGrandeur(leftShortname, rightShortname)
-    ? Fraction(unit(leftShortname).coef).div(unit(rightShortname).coef).valueOf()
-    : undefined;
+export const unitCoef = (leftShortname, rightShortname) =>
+    sameGrandeur(leftShortname, rightShortname) ?
+        leftShortname === rightShortname ?
+            1
+            : Fraction(unit(leftShortname).coef).div(unit(rightShortname).coef).valueOf()
+        : undefined;
 
 /**
  * @returns le coef pour passer d'une quantité à l'autre. undefined si les unités ne sont pas compatibles.

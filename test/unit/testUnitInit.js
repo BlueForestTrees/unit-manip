@@ -1,7 +1,6 @@
 import chai from 'chai';
-import {getGrandeursKeys, getShortnames, getUnits} from "../..";
+import {getGrandeursKeys, getShortnames, getUnits,getGrandeur, getGrandeurs} from "../../src/index";
 import {mockGrandeurs} from "../mock";
-import {getGrandeur, getGrandeurs} from "../..";
 
 chai.should();
 

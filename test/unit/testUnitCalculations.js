@@ -1,6 +1,6 @@
 import {mockGrandeurs} from "../mock";
-import {bestRound} from "../../index";
 import chai from 'chai';
+import {bestRound} from "../../src";
 
 chai.should();
 

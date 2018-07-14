@@ -9,7 +9,7 @@
   "scripts": {
     "init": "npm install yarn && yarn",
     "test": "node --version && node --version && mocha --exit --recursive test --require babel-register",
-    "build": "rimraf dist && yarn run test && babel index.js -d dist",
+    "build": "rimraf dist && yarn run test && babel src/index.js -d dist",
     "prepublishOnly": "npm version patch && npm run build",
     "npmpublish": "npm publish"
   },

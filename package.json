@@ -2,7 +2,7 @@
   "name": "trees-units",
   "version": "1.0.25",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "files": [
     "dist"
   ],

@@ -71,7 +71,12 @@ describe('TU Grandeurs', function () {
         it('2kg 4kg == 0.5', function () {
             expect(qtUnitCoef({qt: 2, unit: "kg"}, {qt: 4, unit: "kg"})).to.equal(0.5);
         });
-
+        it('1L 1mL == 1000', function () {
+            expect(qtUnitCoef({qt: 1, unit: "L"}, {qt: 1, unit: "mL"})).to.equal(1000);
+        });
+        it('1L 1000mL == 1', function () {
+            expect(qtUnitCoef({qt: 1, unit: "L"}, {qt: 1000, unit: "mL"})).to.equal(1);
+        });
         it('1000g 1kg == 1', function () {
             expect(qtUnitCoef({qt: 1000, unit: "g"}, {qt: 1, unit: "kg"})).to.equal(1);
         });

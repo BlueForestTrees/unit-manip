@@ -114,6 +114,8 @@ export const toBaseQuantity = quantity => {
     };
 };
 
+export const changeUnit = (quantity, newUnit) => quantity.qt * unitCoef(quantity.unit, newUnit);
+
 export const grandeurFromShortname = shortname => {
     const u = unit(shortname);
     return u && find(ctx.grandeurs, "key", u.grandeur);

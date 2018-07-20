@@ -69,5 +69,9 @@ export const loadUnitsData = () => Promise.resolve(
         ]),
         grandeur("Prix", "Prix/Coût (€...)", [
             unit("€", "euro", 1)
+        ]),
+        grandeur("Tran", "Transport (t*km...)", [
+            unit("t*km", "Tonne Kilomètre (t*km)", 1),
+            unit("kg*km", "Kilogramme Kilomètre (kg*km)", 0.001)
         ])
     ]);

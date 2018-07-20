@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 import {mockGrandeurs} from "../mock";
-import {bestQuantity, coef, grandeur, qtUnitCoef, toBaseQuantity, unit, unitCoef,grandeurFromShortname, sameGrandeur} from "../../src/index";
+import {bestQuantity, coef, grandeur, qtUnitCoef, toBaseQuantity, unit, unitCoef, grandeurFromShortname, sameGrandeur, changeUnit} from "../../src/index";
 
 beforeEach(async () => {
     await mockGrandeurs();
@@ -184,5 +184,17 @@ describe('TU Grandeurs', function () {
             expect(bestQuantity({qt: 0.0000001, unit: "kg"})).to.deep.equal({qt: 0.1, unit: "mg"});
         });
     });
+
+    describe('change unit', function(){
+        it('10t kg => 10000', function(){
+            expect(changeUnit({qt:10,unit:"t"},"kg")).to.equal(10000);
+        })
+        it('0.001t kg => 1', function(){
+            expect(changeUnit({qt:0.001,unit:"t"},"kg")).to.equal(1);
+        })
+        it('1kg kg => 1', function(){
+            expect(changeUnit({qt:1,unit:"kg"},"kg")).to.equal(1);
+        })
+    })
 
 });

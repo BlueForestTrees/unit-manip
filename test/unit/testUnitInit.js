@@ -41,6 +41,8 @@ describe('TU Init', function () {
             "€",
             "m2",
             "hec",
+            "kg*km",
+            "t*km",
             "mL",
             "cL",
             "dL",
@@ -60,6 +62,7 @@ describe('TU Init', function () {
             "Nomb",
             "Prix",
             "Surf",
+            "Tran",
             "Volu"
         ]);
     });
@@ -190,8 +193,14 @@ describe('TU Init', function () {
                 "coef": 1000, 
                 "grandeur": "Ener", 
                 "name": "kilo-calorie", 
-                "shortname": "kcal", 
-            }, 
+                "shortname": "kcal",
+            },
+            "kg*km": {
+                "coef": 0.001,
+                "grandeur": "Tran",
+                "name": "Kilogramme Kilomètre (kg*km)",
+                "shortname": "kg*km",
+            },
             "kg": {
                 "coef": 1000, 
                 "grandeur": "Mass", 
@@ -280,8 +289,14 @@ describe('TU Init', function () {
                 "coef": 1000000, 
                 "grandeur": "Mass", 
                 "name": "tonne", 
-                "shortname": "t", 
-            }, 
+                "shortname": "t",
+            },
+            "t*km": {
+                "coef": 1,
+                "grandeur": "Tran",
+                "name": "Tonne Kilomètre (t*km)",
+                "shortname": "t*km"
+            },
             "wh": {
                 "coef": 861.24402,
                 "grandeur": "Ener", 
@@ -310,7 +325,7 @@ describe('TU Init', function () {
     });
 
     it('getGrandeurs', function () {
-        getGrandeurs().map(g => g.key).should.deep.equal(["Dens","Duré","Ener","Long","Mass","Nomb","Prix","Surf","Volu"])
+        getGrandeurs().map(g => g.key).should.deep.equal(["Dens", "Duré", "Ener", "Long", "Mass", "Nomb", "Prix", "Surf", "Tran", "Volu"])
     });
 
 });

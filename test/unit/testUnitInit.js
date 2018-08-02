@@ -26,7 +26,7 @@ describe('TU Init', function () {
             "cal",
             "wh",
             "kcal",
-            "kwh",
+            "kWh",
             "Mcal",
             "mm",
             "cm",
@@ -213,11 +213,11 @@ describe('TU Init', function () {
                 "name": "kilomètre", 
                 "shortname": "km", 
             }, 
-            "kwh": {
+            "kWh": {
                 "coef": 861244.02,
                 "grandeur": "Ener", 
                 "name": "Watt-Heure", 
-                "shortname": "kwh", 
+                "shortname": "kWh",
             }, 
             "m": {
                 "coef": 1, 

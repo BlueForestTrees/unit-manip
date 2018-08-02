@@ -22,7 +22,7 @@ export const loadUnitsData = () => Promise.resolve(
             unit("ws", "Watt-Seconde", 0.23923445),
             unit("cal", "calorie", 1),
             unit("wh", "Watt-Heure", 0.23923445 * 3600),
-            unit("kwh", "Watt-Heure", 0.23923445 * 3600 * 1000),
+            unit("kWh", "Watt-Heure", 0.23923445 * 3600 * 1000),
             unit("kcal", "kilo-calorie", 1000),
             unit("Mcal", "mega-calorie", 1000 * 1000)
         ]),

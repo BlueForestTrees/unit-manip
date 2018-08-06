@@ -37,7 +37,7 @@ const find = (array, key, value) => {
         }
     }
 };
-const findIndex = (array, key, value) => {
+export const findIndex = (array, key, value) => {
     const length = array.length;
     for (let i = 0; i < length; i++) {
         const match = array[i][key] === value;

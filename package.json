@@ -24,8 +24,7 @@
   },
   "homepage": "https://github.com/BlueForestTrees/trees-common#readme",
   "dependencies": {
-    "fraction.js": "4.0.4",
-    "lodash": "4.17.5"
+    "fraction.js": "4.0.4"
   },
   "devDependencies": {
     "babel-cli": "6.26.0",

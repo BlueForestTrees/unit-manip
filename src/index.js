@@ -28,7 +28,15 @@ export const initUnits = grandeurs => {
 
 };
 
-const find = (array, key, value) => {
+export const map = (array, fct) => {
+    const length = array.length
+    const res = []
+    for (let i = 0; i < length; i++) {
+        res.push(fct(array[i]))
+    }
+    return res
+}
+export const find = (array, key, value) => {
     const length = array.length;
     for (let i = 0; i < length; i++) {
         const item = array[i];

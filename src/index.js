@@ -25,7 +25,6 @@ export const initUnits = grandeurs => {
         grandeursKeys,
         shortnames: Object.keys(units)
     };
-
 };
 
 export const map = (array, fct) => {
@@ -121,6 +120,13 @@ export const toBaseQuantity = quantity => {
         unit: base(grandeur(quantity.unit)).shortname
     };
 };
+
+export const toBaseQG = quantity => {
+    return {
+        baseQt: quantity.qt * coef(quantity.unit),
+        g: grandeur(quantity.unit)
+    }
+}
 
 export const changeUnit = (quantity, newUnit) => quantity.qt * unitCoef(quantity.unit, newUnit);
 

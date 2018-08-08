@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 import {mockGrandeurs} from "../mock";
 import {bestQuantity, coef, grandeur, qtUnitCoef, toBaseQuantity, unit, unitCoef, grandeurFromShortname, sameGrandeur, changeUnit} from "../../src/index";
-import {toBaseQG} from "../../src"
+import {toBqtG} from "../../src"
 
 beforeEach(async () => {
     await mockGrandeurs();
@@ -105,7 +105,7 @@ describe('TU Grandeurs', function () {
         });
     });
 
-    describe('baseQt', function () {
+    describe('toBqtG', function () {
         it('10kg => 10000g', function () {
             expect(toBaseQuantity({qt: 10, unit: "kg"})).to.deep.equal({qt: 10000, unit: "g"});
         });
@@ -117,15 +117,15 @@ describe('TU Grandeurs', function () {
         });
     });
 
-    describe('baseQt', function () {
+    describe('toBqtG', function () {
         it('10kg => 10000 Mass', function () {
-            expect(toBaseQG({qt: 10, unit: "kg"})).to.deep.equal({baseQt: 10000, g: "Mass"});
+            expect(toBqtG({qt: 10, unit: "kg"})).to.deep.equal({bqt: 10000, g: "Mass"});
         });
         it('10.5kg => 10500 Mass', function () {
-            expect(toBaseQG({qt: 10, unit: "kg"})).to.deep.equal({baseQt: 10000, g: "Mass"});
+            expect(toBqtG({qt: 10, unit: "kg"})).to.deep.equal({bqt: 10000, g: "Mass"});
         });
         it('10g => 10 Mass', function () {
-            expect(toBaseQG({qt: 10, unit: "g"})).to.deep.equal({baseQt: 10, g: "Mass"});
+            expect(toBqtG({qt: 10, unit: "g"})).to.deep.equal({bqt: 10, g: "Mass"});
         });
     });
 

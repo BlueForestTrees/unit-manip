@@ -121,12 +121,10 @@ export const toBaseQuantity = quantity => {
     };
 };
 
-export const toBaseQG = quantity => {
-    return {
-        baseQt: quantity.qt * coef(quantity.unit),
+export const toBqtG = quantity => ({
+        bqt: baseQt(quantity),
         g: grandeur(quantity.unit)
-    }
-}
+    })
 
 export const changeUnit = (quantity, newUnit) => quantity.qt * unitCoef(quantity.unit, newUnit);
 

@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 import {mockGrandeurs} from "../mock";
-import {bestQuantity, coef, grandeur, qtUnitCoef, toBaseQuantity, unit, unitCoef, grandeurFromShortname, sameGrandeur, changeUnit} from "../../src/index";
+import {bestQuantity, coef, grandeur, qtUnitCoef, toBaseQuantity, unit, unitCoef, grandeurFromShortname, sameGrandeur, changeUnit, bqtGToQtUnit} from "../../src/index"
 import {toBqtG} from "../../src"
 
 beforeEach(async () => {
@@ -8,6 +8,12 @@ beforeEach(async () => {
 });
 
 describe('TU Grandeurs', function () {
+    
+    describe('bqtGToQtUnit', function(){
+        it('1 Mass 1 g', function(){
+            expect(bqtGToQtUnit({bqt:1, g:"Mass"})).to.deep.equal({qt:1, unit:"g"})
+        })
+    })
 
     describe('sameGrandeur', function () {
         it('m m ok', function () {

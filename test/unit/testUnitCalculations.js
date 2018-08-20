@@ -1,4 +1,4 @@
-import {mockGrandeurs} from "../mock";
+import {mockGrandeurs} from "../grandeurServiceMock";
 import chai from 'chai';
 import {bestRound} from "../../src";
 

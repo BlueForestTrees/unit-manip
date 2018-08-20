@@ -32,7 +32,8 @@ export const loadUnitsData = () => Promise.resolve(
             unit("mol", "mole", 1)
         ]),
         grandeur("Nomb", "Nombre (pas d'unité)", [
-            unit("count", "", 1)
+            unit("Nomb", "pas d'unité", 1),
+            unit("Item(s)", "items", 1)
         ]),
         grandeur("Volu", "Volume (L, m3...)", [
             unit("goutte", "Goutte", 0.001 * 20000),

@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import {mockGrandeurs} from "../mock";
+import {mockGrandeurs} from "../grandeurServiceMock";
 import {bestQuantity, coef, grandeur, qtUnitCoef, toBaseQuantity, unit, unitCoef, grandeurFromShortname, sameGrandeur, changeUnit, bqtGToQtUnit} from "../../src/index"
 import {toBqtG} from "../../src"
 
@@ -41,7 +41,7 @@ describe('TU Grandeurs', function () {
             expect(unitCoef('m', 'm')).to.equal(1);
         });
         it('"" ok', function () {
-            expect(unitCoef('count', 'count')).to.equal(1);
+            expect(unitCoef('Nomb', 'Nomb')).to.equal(1);
         });
         it('unit("doudou") throws error', function () {
             expect(unit('doudou')).to.be.null;
@@ -107,7 +107,7 @@ describe('TU Grandeurs', function () {
             expect(coef("g")).to.equal(1);
         });
         it('"count" => 1', function () {
-            expect(coef("count")).to.equal(1);
+            expect(coef("Nomb")).to.equal(1);
         });
     });
 
@@ -147,6 +147,9 @@ describe('TU Grandeurs', function () {
     describe('best quantity Masse', function () {
         it('1 Nomb => 1 Nomb', function(){
             expect(bestQuantity({qt: 1, unit: "Nomb"})).to.deep.equal({qt: 1, unit: "Nomb"});
+        })
+        it('1 Item => 1 Item', function(){
+            expect(bestQuantity({qt: 1, unit: "Item(s)"})).to.deep.equal({qt: 1, unit: "Item(s)"});
         })
         it('500uio => null', function () {
             expect(bestQuantity({qt: 500, unit: "uio"})).to.deep.equal({qt: 500, unit: "uio!"});

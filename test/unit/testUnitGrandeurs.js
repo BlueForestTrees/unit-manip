@@ -145,6 +145,9 @@ describe('TU Grandeurs', function () {
     });
 
     describe('best quantity Masse', function () {
+        it('1 Nomb => 1 Nomb', function(){
+            expect(bestQuantity({qt: 1, unit: "Nomb"})).to.deep.equal({qt: 1, unit: "Nomb"});
+        })
         it('500uio => null', function () {
             expect(bestQuantity({qt: 500, unit: "uio"})).to.deep.equal({qt: 500, unit: "uio!"});
         });

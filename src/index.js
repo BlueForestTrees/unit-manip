@@ -63,7 +63,7 @@ export const getShortnames = () => ctx.shortnames
 
 export const unit = shortname => ctx.units.hasOwnProperty(shortname) ? ctx.units[shortname] : null
 export const coef = shortname => unit(shortname).coef
-export const base = gKey => {
+export const gKeyTobUnit = gKey => {
     let g = getGrandeur(gKey)
     return g && find(g.units, "coef", 1)
 }
@@ -117,7 +117,7 @@ export const qtUnitCoef = (leftQuantity, rightQuantity) => leftQuantity && right
 export const toBaseQuantity = quantity => {
     return {
         qt: quantity.qt * coef(quantity.unit),
-        unit: base(grandeur(quantity.unit)).shortname
+        unit: gKeyTobUnit(grandeur(quantity.unit)).shortname
     }
 }
 
@@ -126,9 +126,11 @@ export const toBqtG = quantity => ({
     g: grandeur(quantity.unit)
 })
 
-export const bqtGToQtUnit = ({bqt, g}) => ({
-    qt: bqt, unit: base(g).shortname
-})
+export const bqtGToQtUnit = ({bqt, g}) => {
+    const bUnit = gKeyTobUnit(g)
+    return{
+    qt: bqt, unit: bUnit && bUnit.shortname || `${g}!`
+}}
 
 export const changeUnit = (quantity, newUnit) => quantity.qt * unitCoef(quantity.unit, newUnit)
 

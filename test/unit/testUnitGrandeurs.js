@@ -181,6 +181,9 @@ describe('TU Grandeurs', function () {
         it('0.001g => 1mg', function () {
             expect(bestQuantity({qt: 0.001, unit: "g"})).to.deep.equal({qt: 1, unit: "mg"});
         });
+        it('0.003g => 3mg', function () {
+            expect(bestQuantity({qt: 0.003, unit: "g"})).to.deep.equal({qt: 3, unit: "mg"});
+        });
         it('0.0001g => 0.1mg', function () {
             expect(bestQuantity({qt: 0.0001, unit: "g"})).to.deep.equal({qt: 0.1, unit: "mg"});
         });

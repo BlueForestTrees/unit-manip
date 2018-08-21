@@ -128,9 +128,10 @@ export const toBqtG = quantity => ({
 
 export const bqtGToQtUnit = ({bqt, g}) => {
     const bUnit = gKeyTobUnit(g)
-    return{
-    qt: bqt, unit: bUnit && bUnit.shortname || `${g}!`
-}}
+    return {
+        qt: bqt, unit: bUnit && bUnit.shortname || `${g}!`
+    }
+}
 
 export const changeUnit = (quantity, newUnit) => quantity.qt * unitCoef(quantity.unit, newUnit)
 
@@ -155,7 +156,7 @@ export const bestQuantity = (quantity) => {
     if (currentUnitIndex > 0) {
         const lowerUnit = units[currentUnitIndex - 1]
         const downingCoef = lowerUnit.coef / currentUnit.coef
-        if (downingCoef < 1 && quantity.qt <= downingCoef*10) {
+        if (downingCoef < 1 && quantity.qt <= downingCoef * 10) {
             return bestQuantity({qt: quantity.qt / downingCoef, unit: lowerUnit.shortname})
         }
     }

@@ -1,19 +1,19 @@
-import {initUnits} from "../src/index";
+import {initUnits} from "../src/index"
 
-export const mockGrandeurs = () => loadUnitsData().then(initUnits);
+export const mockGrandeurs = () => loadUnitsData().then(initUnits)
 
 const grandeur = (key, label, units) => ({
     key,
     label,
     units
-});
+})
 
 const unit = (shortname, name, coef) =>
     ({
         shortname: shortname,
         name: name,
         coef: coef
-    });
+    })
 
 export const loadUnitsData = () => Promise.resolve(
     [
@@ -68,11 +68,20 @@ export const loadUnitsData = () => Promise.resolve(
             unit("m", "mètre", 1),
             unit("km", "kilomètre", 1000)
         ]),
-        grandeur("Prix", "Prix/Coût (€...)", [
-            unit("€", "euro", 1)
+        grandeur("Pri1", "Prix/Coût (€...)", [
+            unit("M€", "milliard-euro (€)", 1000000000),
+            unit("m€", "million-euro (€)", 1000000),
+            unit("k€", "kilo-euro (€)", 1000),
+            unit("€", "euro (€)", 1),
+        ]),
+        grandeur("Pri2", "Prix/Coût (€...)", [
+            unit("M$", "billion-dollar ($)", 1000000),
+            unit("m$", "million-dollar ($)", 1000000),
+            unit("k$", "kilo-dollar ($)", 1000),
+            unit("$", "dollar ($)", 1),
         ]),
         grandeur("Tran", "Transport (t*km...)", [
             unit("t*km", "Tonne Kilomètre (t*km)", 1),
             unit("kg*km", "Kilogramme Kilomètre (kg*km)", 0.001)
         ])
-    ]);
+    ])

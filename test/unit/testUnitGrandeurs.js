@@ -170,7 +170,7 @@ describe('TU Grandeurs', function () {
     
     describe('bestQuantity', function () {
         it('5.0245 € => 5.0245 €', function () {
-            expect(bestQuantity({qt: 5.0245, unit: "€"})).to.deep.equal({qt: 5.0245, unit: "€"})
+            expect(bestQuantity({qt: 5.0245, unit: "€"})).to.deep.equal({qt: 5.02, unit: "€"})
         })
         it('1 Nomb => 1 Nomb', function () {
             expect(bestQuantity({qt: 1, unit: "Nomb"})).to.deep.equal({qt: 1, unit: "Nomb"})

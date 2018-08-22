@@ -40,6 +40,13 @@ describe('TU Init', function () {
             "Nomb",
             "Item(s)",
             "€",
+            "k€",
+            "m€",
+            "M€",
+            "$",
+            "k$",
+            "M$",
+            "m$",
             "m2",
             "hec",
             "kg*km",
@@ -61,7 +68,8 @@ describe('TU Init', function () {
             "Long",
             "Mass",
             "Nomb",
-            "Prix",
+            "Pri1",
+            "Pri2",
             "Surf",
             "Tran",
             "Volu"
@@ -100,6 +108,12 @@ describe('TU Init', function () {
     
     it('getUnits', async function () {
         getUnits().should.deep.equal({
+            "$": {
+                "coef": 1,
+                "grandeur": "Pri2",
+                "name": "dollar ($)",
+                "shortname": "$"
+            },
             "J": {
                 "coef": 0.23923445,
                 "grandeur": "Ener",
@@ -111,6 +125,12 @@ describe('TU Init', function () {
                 "grandeur": "Volu",
                 "name": "Litre (L)",
                 "shortname": "L",
+            },
+            "M$": {
+                "coef": 1000000,
+                "grandeur": "Pri2",
+                "name": "billion-dollar ($)",
+                "shortname": "M$"
             },
             "Mcal": {
                 "coef": 1000000,
@@ -135,6 +155,12 @@ describe('TU Init', function () {
                 "grandeur": "Volu",
                 "name": "Centi-litre (cL)",
                 "shortname": "cL",
+            },
+            "M€": {
+                "coef": 1000000000,
+                "grandeur": "Pri1",
+                "name": "milliard-euro (€)",
+                "shortname": "M€"
             },
             "Nomb": {
                 "coef": 1,
@@ -220,17 +246,35 @@ describe('TU Init', function () {
                 "name": "kilomètre",
                 "shortname": "km",
             },
+            "k$": {
+                "coef": 1000,
+                "grandeur": "Pri2",
+                "name": "kilo-dollar ($)",
+                "shortname": "k$"
+            },
             "kWh": {
                 "coef": 861244.02,
                 "grandeur": "Ener",
                 "name": "Watt-Heure",
                 "shortname": "kWh",
             },
+            "k€": {
+                "coef": 1000,
+                "grandeur": "Pri1",
+                "name": "kilo-euro (€)",
+                "shortname": "k€"
+            },
             "m": {
                 "coef": 1,
                 "grandeur": "Long",
                 "name": "mètre",
                 "shortname": "m",
+            },
+            "m$": {
+                "coef": 1000000,
+                "grandeur": "Pri2",
+                "name": "million-dollar ($)",
+                "shortname": "m$"
             },
             "m2": {
                 "coef": 1,
@@ -286,6 +330,12 @@ describe('TU Init', function () {
                 "name": "mole",
                 "shortname": "mol",
             },
+            "m€": {
+                "coef": 1000000,
+                "grandeur": "Pri1",
+                "name": "million-euro (€)",
+                "shortname": "m€"
+            },
             "sec": {
                 "coef": 1,
                 "grandeur": "Duré",
@@ -324,15 +374,15 @@ describe('TU Init', function () {
             },
             "€": {
                 "coef": 1,
-                "grandeur": "Prix",
-                "name": "euro",
+                "grandeur": "Pri1",
+                "name": "euro (€)",
                 "shortname": "€",
             },
         })
     })
     
     it('getGrandeurs', function () {
-        getGrandeurs().map(g => g.key).should.deep.equal(["Dens", "Duré", "Ener", "Long", "Mass", "Nomb", "Prix", "Surf", "Tran", "Volu"])
+        getGrandeurs().map(g => g.key).should.deep.equal(["Dens", "Duré", "Ener", "Long", "Mass", "Nomb",  "Pri1", "Pri2", "Surf", "Tran", "Volu"])
     })
     
 })

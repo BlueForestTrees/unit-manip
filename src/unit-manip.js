@@ -156,7 +156,7 @@ export const bestQuantity = (quantity) => {
     if (currentUnitIndex > 0) {
         const lowerUnit = units[currentUnitIndex - 1]
         const downingCoef = lowerUnit.coef / currentUnit.coef
-        if (downingCoef < 1 && quantity.qt <= downingCoef * 10) {
+        if (downingCoef < 1 && quantity.qt <= downingCoef) {
             return bestQuantity({qt: quantity.qt / downingCoef, unit: lowerUnit.shortname})
         }
     }

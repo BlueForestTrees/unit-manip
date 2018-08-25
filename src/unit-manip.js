@@ -35,6 +35,17 @@ export const map = (array, fct) => {
     }
     return res
 }
+
+export const filter = (array, fct) => {
+    const length = array.length
+    const res = []
+    for (let i = 0; i < length; i++) {
+        if (fct(array[i])) {
+            res.push(array[i])
+        }
+    }
+    return res
+}
 export const find = (array, key, value) => {
     const length = array.length
     for (let i = 0; i < length; i++) {

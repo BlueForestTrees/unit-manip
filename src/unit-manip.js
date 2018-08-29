@@ -156,8 +156,11 @@ export const bestQuantity = (quantity) => {
 
     const bqt = baseQt(quantity)
 
-    const qts = map(grandeur.units, unit => ({qt: bqt*unit.coef, unit:unit.shortname}))
-        .sort((a,b)=>a.qt-b.qt)
+    const qts = map(grandeur.units, unit => ({qt: bestRound(bqt/unit.coef), unit:unit.shortname}))
+        .sort((a,b)=>{
+            const longueurTri = (a.qt+'').length-(b.qt+'').length
+            return longueurTri !== 0 ? longueurTri : Math.abs(a.qt) - Math.abs(b.qt)
+        })
 
     return qts[0]
 }
@@ -170,13 +173,7 @@ const precisionRound = (number, precision) => {
     const factor = Math.pow(10, precision)
     return Math.round(number * factor) / factor
 }
-export const bestRound = v =>
-    v < 1 ? precisionRound(v, 3)
-        :
-        v < 10 ? precisionRound(v, 2)
-            :
-            v < 100 ? precisionRound(v, 1)
-                :
-                Math.round(v)
+
+export const bestRound = v => Number(v.toPrecision(3))
 
 export const baseQt = quantity => quantity.qt * coef(quantity.unit)

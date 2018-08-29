@@ -52,8 +52,6 @@ export const loadUnitsData = () => Promise.resolve(
             unit("an", "année", 60 * 60 * 24 * 30 * 355 * 12)
         ]),
         grandeur("Mass", "Masse (g, kg...)", [
-            unit("ng", "Nanoramme (ng)", 0.000000000001),
-            unit("µg", "Microgramme (µg)", 0.000000001),
             unit("mg", "Milligramme (mg)", 0.000001),
             unit("g", "Gramme (g)", 0.001),
             unit("kg", "Kilo-gramme (kg)", 1),

@@ -11,31 +11,10 @@ beforeEach(async () => {
 })
 
 describe('TU Grandeurs', function () {
-    
-    describe('best round', function () {
-        it('999 999', function () {
-            bestRound(999).should.equal(999)
-        })
-        it('999.1 999', function () {
-            bestRound(999.1).should.equal(999)
-        })
-        it('999.6 1000', function () {
-            bestRound(999.6).should.equal(1000)
-        })
-        it('99.61 99.9', function () {
-            bestRound(99.91).should.equal(99.9)
-        })
-        it('9.991 9.99', function () {
-            bestRound(9.991).should.equal(9.99)
-        })
-        it('0.9991 0.999', function () {
-            bestRound(0.9991).should.equal(0.999)
-        })
-    })
-    
+
     describe('bqtGToQtUnit', function () {
-        it('1 Mass 1 g', function () {
-            expect(bqtGToQtUnit({bqt: 1, g: "Mass"})).to.deep.equal({qt: 1, unit: "g"})
+        it('1 Mass 1 kg', function () {
+            expect(bqtGToQtUnit({bqt: 1, g: "Mass"})).to.deep.equal({qt: 1, unit: "kg"})
         })
         it('0.001 Mass 0.001 g', function () {
             expect(bqtGToQtUnit({bqt: "0.001", g: "Volu"})).to.deep.equal({qt: "0.001", unit: "m3"})
@@ -127,11 +106,11 @@ describe('TU Grandeurs', function () {
     })
     
     describe('coef', function () {
-        it('kg => 1000', function () {
-            expect(coef("kg")).to.equal(1000)
+        it('kg => 1', function () {
+            expect(coef("kg")).to.equal(1)
         })
-        it('g => 1', function () {
-            expect(coef("g")).to.equal(1)
+        it('g => 0.001', function () {
+            expect(coef("g")).to.equal(0.001)
         })
         it('"count" => 1', function () {
             expect(coef("Nomb")).to.equal(1)
@@ -139,26 +118,29 @@ describe('TU Grandeurs', function () {
     })
     
     describe('toBaseQuantity', function () {
-        it('10kg => 10000g', function () {
-            expect(toBaseQuantity({qt: 10, unit: "kg"})).to.deep.equal({qt: 10000, unit: "g"})
+        it('10t => 10000kg', function () {
+            expect(toBaseQuantity({qt: 10, unit: "t"})).to.deep.equal({qt: 10000, unit: "kg"})
         })
-        it('10.5kg => 10500g', function () {
-            expect(toBaseQuantity({qt: 10, unit: "kg"})).to.deep.equal({qt: 10000, unit: "g"})
+        it('10.5t => 10500kg', function () {
+            expect(toBaseQuantity({qt: 10, unit: "t"})).to.deep.equal({qt: 10000, unit: "kg"})
         })
-        it('10g => 10g', function () {
-            expect(toBaseQuantity({qt: 10, unit: "g"})).to.deep.equal({qt: 10, unit: "g"})
+        it('10kg => 10kg', function () {
+            expect(toBaseQuantity({qt: 10, unit: "kg"})).to.deep.equal({qt: 10, unit: "kg"})
         })
     })
     
     describe('toBqtG', function () {
-        it('10kg => 10000 Mass', function () {
-            expect(toBqtG({qt: 10, unit: "kg"})).to.deep.equal({bqt: 10000, g: "Mass"})
+        it('10t => 10000 Mass', function () {
+            expect(toBqtG({qt: 10, unit: "t"})).to.deep.equal({bqt: 10000, g: "Mass"})
         })
-        it('10.5kg => 10500 Mass', function () {
-            expect(toBqtG({qt: 10, unit: "kg"})).to.deep.equal({bqt: 10000, g: "Mass"})
+        it('10.5t => 10500 Mass', function () {
+            expect(toBqtG({qt: 10, unit: "t"})).to.deep.equal({bqt: 10000, g: "Mass"})
         })
-        it('10g => 10 Mass', function () {
-            expect(toBqtG({qt: 10, unit: "g"})).to.deep.equal({bqt: 10, g: "Mass"})
+        it('10kg => 10 Mass', function () {
+            expect(toBqtG({qt: 10, unit: "kg"})).to.deep.equal({bqt: 10, g: "Mass"})
+        })
+        it('0.01kg => 0.01 Mass', function () {
+            expect(toBqtG({qt: 0.01, unit: "kg"})).to.deep.equal({bqt: 0.01, g: "Mass"})
         })
     })
     
@@ -170,12 +152,48 @@ describe('TU Grandeurs', function () {
             expect(grandeurFromShortname("zz")).to.be.null
         })
     })
+
+    describe('best round', function () {
+        it('999 999', function () {
+            bestRound(999).should.equal(999)
+        })
+        it('999.1 999', function () {
+            bestRound(999.1).should.equal(999)
+        })
+        it('999.6 1000', function () {
+            bestRound(999.6).should.equal(1000)
+        })
+        it('99.61 99.9', function () {
+            bestRound(99.91).should.equal(99.9)
+        })
+        it('9.991 9.99', function () {
+            bestRound(9.991).should.equal(9.99)
+        })
+        it('0.9991 0.999', function () {
+            bestRound(0.9991).should.equal(0.999)
+        })
+        it('0.1 0.1', function () {
+            bestRound(0.1).should.equal(0.1)
+        })
+        it('0.01 0.01', function () {
+            bestRound(0.01).should.equal(0.01)
+        })
+        it('0.001 0.001', function () {
+            bestRound(0.001).should.equal(0.001)
+        })
+        it('0.0001 0.0001', function () {
+            bestRound(0.0001).should.equal(0.0001)
+        })
+        it('0.000000001 0.000000001', function () {
+            bestRound(0.000000001).should.equal(0.000000001)
+        })
+    })
     
     describe('bestQuantity', function () {
-        it('2.42883e-11 g => ?', function () {
-            expect(bestQuantity({qt: 2.42883e-11, unit: "g"})).to.deep.equal({qt: -1.19, unit: "kg"})
+        it('2.42883e-11 g => 2.43e-11 g', function () {
+            expect(bestQuantity({qt: 2.42883e-11, unit: "g"})).to.deep.equal({qt: 2.43e-8, unit: "mg"})
         })
-        it('-1189710 mg => ?', function () {
+        it('-1189710 mg => -1.19kg', function () {
             expect(bestQuantity({qt: -1189710, unit: "mg"})).to.deep.equal({qt: -1.19, unit: "kg"})
         })
         it('0.003 kg => 1 g', function () {
@@ -187,20 +205,17 @@ describe('TU Grandeurs', function () {
         it('0.001 m3 => 1 L', function () {
             expect(bestQuantity({qt: 0.001, unit: "m3"})).to.deep.equal({qt: 1, unit: "L"})
         })
-        it('5.0245 € => 5.0245 €', function () {
+        it('5.0245 € => 5.02 €', function () {
             expect(bestQuantity({qt: 5.0245, unit: "€"})).to.deep.equal({qt: 5.02, unit: "€"})
         })
         it('1 Nomb => 1 Nomb', function () {
             expect(bestQuantity({qt: 1, unit: "Nomb"})).to.deep.equal({qt: 1, unit: "Nomb"})
         })
-        it('1 Item => 1 Item', function () {
-            expect(bestQuantity({qt: 1, unit: "Item(s)"})).to.deep.equal({qt: 1, unit: "Item(s)"})
-        })
         it('500uio => null', function () {
             expect(bestQuantity({qt: 500, unit: "uio"})).to.deep.equal({qt: 500, unit: "uio!"})
         })
         it('500mg => 500mg', function () {
-            expect(bestQuantity({qt: 500, unit: "mg"})).to.deep.equal({qt: 500, unit: "mg"})
+            expect(bestQuantity({qt: 500, unit: "mg"})).to.deep.equal({qt: 0.5, unit: "g"})
         })
         it('1000mg => 1g', function () {
             expect(bestQuantity({qt: 1000, unit: "mg"})).to.deep.equal({qt: 1, unit: "g"})
@@ -221,7 +236,7 @@ describe('TU Grandeurs', function () {
             expect(bestQuantity({qt: 1999999999, unit: "mg"})).to.deep.equal({qt: 2, unit: "t"})
         })
         it('0.51m3 => ', function () {
-            expect(bestQuantity({qt: 0.51, unit: "m3"})).to.deep.equal({qt: 0.51, unit: "m3"})
+            expect(bestQuantity({qt: 0.51, unit: "m3"})).to.deep.equal({qt: 510, unit: "L"})
         })
         it('0.001g => 1mg', function () {
             expect(bestQuantity({qt: 0.001, unit: "g"})).to.deep.equal({qt: 1, unit: "mg"})
@@ -232,8 +247,11 @@ describe('TU Grandeurs', function () {
         it('1g => 1g', function () {
             expect(bestQuantity({qt: 1, unit: "g"})).to.deep.equal({qt: 1, unit: "g"})
         })
+        it('50g => 50g', function () {
+            expect(bestQuantity({qt: 50, unit: "g"})).to.deep.equal({qt: 50, unit: "g"})
+        })
         it('500g => 500g', function () {
-            expect(bestQuantity({qt: 500, unit: "g"})).to.deep.equal({qt: 500, unit: "g"})
+            expect(bestQuantity({qt: 500, unit: "g"})).to.deep.equal({qt: 0.5, unit: "kg"})
         })
         it('999g => 999g', function () {
             expect(bestQuantity({qt: 999, unit: "g"})).to.deep.equal({qt: 999, unit: "g"})

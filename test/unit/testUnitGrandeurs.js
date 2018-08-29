@@ -172,7 +172,19 @@ describe('TU Grandeurs', function () {
     })
     
     describe('bestQuantity', function () {
-        it('0.001 m3 => ?', function () {
+        it('2.42883e-11 g => ?', function () {
+            expect(bestQuantity({qt: 2.42883e-11, unit: "g"})).to.deep.equal({qt: -1.19, unit: "kg"})
+        })
+        it('-1189710 mg => ?', function () {
+            expect(bestQuantity({qt: -1189710, unit: "mg"})).to.deep.equal({qt: -1.19, unit: "kg"})
+        })
+        it('0.003 kg => 1 g', function () {
+            expect(bestQuantity({qt: 0.003, unit: "kg"})).to.deep.equal({qt: 3, unit: "g"})
+        })
+        it('0.001 kg => 1 g', function () {
+            expect(bestQuantity({qt: 0.001, unit: "kg"})).to.deep.equal({qt: 1, unit: "g"})
+        })
+        it('0.001 m3 => 1 L', function () {
             expect(bestQuantity({qt: 0.001, unit: "m3"})).to.deep.equal({qt: 1, unit: "L"})
         })
         it('5.0245 € => 5.0245 €', function () {
@@ -214,9 +226,6 @@ describe('TU Grandeurs', function () {
         it('0.001g => 1mg', function () {
             expect(bestQuantity({qt: 0.001, unit: "g"})).to.deep.equal({qt: 1, unit: "mg"})
         })
-        // it('0.003g => 3mg', function () {
-        //     expect(bestQuantity({qt: 0.003, unit: "g"})).to.deep.equal({qt: 3, unit: "mg"})
-        // })
         it('0.0001g => 0.1mg', function () {
             expect(bestQuantity({qt: 0.0001, unit: "g"})).to.deep.equal({qt: 0.1, unit: "mg"})
         })

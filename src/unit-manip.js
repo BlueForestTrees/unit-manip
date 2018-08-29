@@ -153,26 +153,13 @@ export const grandeurFromShortname = shortname => {
 export const bestQuantity = (quantity) => {
     const grandeur = grandeurFromShortname(quantity.unit)
     if (!grandeur) return {qt: quantity.qt, unit: quantity.unit + "!"}
-    
-    const units = grandeur.units
-    const currentUnit = unit(quantity.unit)
-    const currentUnitIndex = findIndex(units, "shortname", quantity.unit)
-    if (currentUnitIndex < units.length - 1) {
-        const upperUnit = units[currentUnitIndex + 1]
-        const uppingCoef = upperUnit.coef / currentUnit.coef
-        if (uppingCoef > 1 && quantity.qt >= uppingCoef) {
-            return bestQuantity({qt: quantity.qt / uppingCoef, unit: upperUnit.shortname})
-        }
-    }
-    if (currentUnitIndex > 0) {
-        const lowerUnit = units[currentUnitIndex - 1]
-        const downingCoef = lowerUnit.coef / currentUnit.coef
-        if (downingCoef < 1 && quantity.qt <= downingCoef) {
-            return bestQuantity({qt: quantity.qt / downingCoef, unit: lowerUnit.shortname})
-        }
-    }
-    
-    return {qt: bestRound(quantity.qt), unit: quantity.unit}
+
+    const bqt = baseQt(quantity)
+
+    const qts = map(grandeur.units, unit => ({qt: bqt*unit.coef, unit:unit.shortname}))
+        .sort((a,b)=>a.qt-b.qt)
+
+    return qts[0]
 }
 
 export const grandeurOfUnitShortname = shortname => grandeurByName(unit(shortname).grandeur)

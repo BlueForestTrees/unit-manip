@@ -52,11 +52,13 @@ export const loadUnitsData = () => Promise.resolve(
             unit("an", "année", 60 * 60 * 24 * 30 * 355 * 12)
         ]),
         grandeur("Mass", "Masse (g, kg...)", [
-            unit("mg", "milligramme", 0.001),
-            unit("g", "gramme", 1),
-            unit("kg", "kilogramme", 1000),
-            unit("t", "tonne", 1000000),
-            unit("Mt", "mega-tonne", 1000000000)
+            unit("ng", "Nanoramme (ng)", 0.000000000001),
+            unit("µg", "Microgramme (µg)", 0.000000001),
+            unit("mg", "Milligramme (mg)", 0.000001),
+            unit("g", "Gramme (g)", 0.001),
+            unit("kg", "Kilo-gramme (kg)", 1),
+            unit("t", "Tonne (t)", 1000),
+            unit("Mt", "Mega-tonne (Mt)", 1000000)
         ]),
         grandeur("Surf", "Surface (m2, hec...)", [
             unit("m2", "mètre-carré", 1),

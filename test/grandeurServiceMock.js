@@ -37,11 +37,11 @@ export const loadUnitsData = () => Promise.resolve(
         ]),
         grandeur("Volu", "Volume (L, m3...)", [
             unit("goutte", "Goutte", 0.001 * 20000),
-            unit("L", "Litre (L)", 0.001),
-            unit("dL", "Déci-litre (dL)", 0.001 * 0.1),
-            unit("cL", "Centi-litre (cL)", 0.001 * 0.01),
-            unit("mL", "Milli-litre (mL)", 0.001 * 0.001),
-            unit("m3", "Mètre-cube (m3)", 1),
+            unit("L", "Litre", 0.001),
+            unit("dL", "Déci-litre", 0.001 * 0.1),
+            unit("cL", "Centi-litre", 0.001 * 0.01),
+            unit("mL", "Milli-litre", 0.001 * 0.001),
+            unit("m3", "Mètre-cube", 1),
         ]),
         grandeur("Duré", "Durée (sec, min, h...)", [
             unit("sec", "seconde", 1),
@@ -69,19 +69,19 @@ export const loadUnitsData = () => Promise.resolve(
             unit("km", "kilomètre", 1000)
         ]),
         grandeur("Pri1", "Prix/Coût (€...)", [
-            unit("M€", "milliard-euro (€)", 1000000000),
-            unit("m€", "million-euro (€)", 1000000),
-            unit("k€", "kilo-euro (€)", 1000),
-            unit("€", "euro (€)", 1),
+            unit("M€", "milliard d'euros", 1000000000),
+            unit("m€", "million d'euros", 1000000),
+            unit("k€", "Kilo-euro", 1000),
+            unit("€", "euo", 1),
         ]),
         grandeur("Pri2", "Prix/Coût (€...)", [
-            unit("M$", "billion-dollar ($)", 1000000),
-            unit("m$", "million-dollar ($)", 1000000),
-            unit("k$", "kilo-dollar ($)", 1000),
-            unit("$", "dollar ($)", 1),
+            unit("M$", "Milliard de dollars", 1000000),
+            unit("m$", "Million de dollars", 1000000),
+            unit("k$", "Kilo-dollar", 1000),
+            unit("$", "dollar", 1),
         ]),
         grandeur("Tran", "Transport (t*km...)", [
-            unit("t*km", "Tonne Kilomètre (t*km)", 1),
-            unit("kg*km", "Kilogramme Kilomètre (kg*km)", 0.001)
+            unit("t*km", "Tonne Kilomètre", 1),
+            unit("kg*km", "Kilogramme Kilomètre", 0.001)
         ])
     ])

@@ -111,7 +111,7 @@ describe('TU Init', function () {
             "$": {
                 "coef": 1,
                 "grandeur": "Pri2",
-                "name": "dollar ($)",
+                "name": "dollar",
                 "shortname": "$"
             },
             "J": {
@@ -123,13 +123,13 @@ describe('TU Init', function () {
             "L": {
                 "coef": 0.001,
                 "grandeur": "Volu",
-                "name": "Litre (L)",
+                "name": "Litre",
                 "shortname": "L",
             },
             "M$": {
                 "coef": 1000000,
                 "grandeur": "Pri2",
-                "name": "billion-dollar ($)",
+                "name": "Milliard de dollars",
                 "shortname": "M$"
             },
             "Mcal": {
@@ -153,13 +153,13 @@ describe('TU Init', function () {
             "cL": {
                 "coef": 0.00001,
                 "grandeur": "Volu",
-                "name": "Centi-litre (cL)",
+                "name": "Centi-litre",
                 "shortname": "cL",
             },
             "M€": {
                 "coef": 1000000000,
                 "grandeur": "Pri1",
-                "name": "milliard-euro (€)",
+                "name": "milliard d'euros",
                 "shortname": "M€"
             },
             "Nomb": {
@@ -189,7 +189,7 @@ describe('TU Init', function () {
             "dL": {
                 "coef": 0.0001,
                 "grandeur": "Volu",
-                "name": "Déci-litre (dL)",
+                "name": "Déci-litre",
                 "shortname": "dL",
             },
             "g": {
@@ -231,7 +231,7 @@ describe('TU Init', function () {
             "kg*km": {
                 "coef": 0.001,
                 "grandeur": "Tran",
-                "name": "Kilogramme Kilomètre (kg*km)",
+                "name": "Kilogramme Kilomètre",
                 "shortname": "kg*km",
             },
             "kg": {
@@ -249,7 +249,7 @@ describe('TU Init', function () {
             "k$": {
                 "coef": 1000,
                 "grandeur": "Pri2",
-                "name": "kilo-dollar ($)",
+                "name": "Kilo-dollar",
                 "shortname": "k$"
             },
             "kWh": {
@@ -261,7 +261,7 @@ describe('TU Init', function () {
             "k€": {
                 "coef": 1000,
                 "grandeur": "Pri1",
-                "name": "kilo-euro (€)",
+                "name": "Kilo-euro",
                 "shortname": "k€"
             },
             "m": {
@@ -273,7 +273,7 @@ describe('TU Init', function () {
             "m$": {
                 "coef": 1000000,
                 "grandeur": "Pri2",
-                "name": "million-dollar ($)",
+                "name": "Million de dollars",
                 "shortname": "m$"
             },
             "m2": {
@@ -285,13 +285,13 @@ describe('TU Init', function () {
             "m3": {
                 "coef": 1,
                 "grandeur": "Volu",
-                "name": "Mètre-cube (m3)",
+                "name": "Mètre-cube",
                 "shortname": "m3",
             },
             "mL": {
                 "coef": 0.000001,
                 "grandeur": "Volu",
-                "name": "Milli-litre (mL)",
+                "name": "Milli-litre",
                 "shortname": "mL",
             },
             "mg": {
@@ -333,7 +333,7 @@ describe('TU Init', function () {
             "m€": {
                 "coef": 1000000,
                 "grandeur": "Pri1",
-                "name": "million-euro (€)",
+                "name": "million d'euros",
                 "shortname": "m€"
             },
             "sec": {
@@ -351,7 +351,7 @@ describe('TU Init', function () {
             "t*km": {
                 "coef": 1,
                 "grandeur": "Tran",
-                "name": "Tonne Kilomètre (t*km)",
+                "name": "Tonne Kilomètre",
                 "shortname": "t*km"
             },
             "wh": {
@@ -375,7 +375,7 @@ describe('TU Init', function () {
             "€": {
                 "coef": 1,
                 "grandeur": "Pri1",
-                "name": "euro (€)",
+                "name": "euo",
                 "shortname": "€",
             },
         })

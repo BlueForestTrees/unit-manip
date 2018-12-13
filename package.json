@@ -1,6 +1,6 @@
 {
   "name": "unit-manip",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Gestion des unités et grandeurs",
   "main": "src/index.js",
   "files": [

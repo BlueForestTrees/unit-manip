@@ -3,9 +3,6 @@
   "version": "1.0.9",
   "description": "Gestion des unités et grandeurs",
   "main": "src/index.js",
-  "files": [
-    "src"
-  ],
   "scripts": {
     "test": "node --version && mocha --exit --recursive test",
     "build": "rimraf dist && yarn run test",

@@ -1,5 +1,5 @@
-import {find, findIndex, map, filter} from "../../src"
-import {expect} from 'chai'
+const unitManip = require("../../src/index")
+const expect = require ('chai').expect
 
 describe("Utils", function () {
     it("findIndex", function () {
@@ -10,7 +10,7 @@ describe("Utils", function () {
             {_id: "659", v: "987"},
             {_id: "657", v: "987"}
         ]
-        expect(findIndex(data, "_id", "655")).to.equal(2)
+        expect(unitManip.findIndex(data, "_id", "655")).to.equal(2)
     })
     
     it("find", function () {
@@ -21,7 +21,7 @@ describe("Utils", function () {
             {_id: "659", v: "987"},
             {_id: "657", v: "987"}
         ]
-        expect(find(data, "_id", "655")).to.deep.equal({_id: "655", v: "987"})
+        expect(unitManip.find(data, "_id", "655")).to.deep.equal({_id: "655", v: "987"})
     })
     
     it("map", function () {
@@ -32,7 +32,7 @@ describe("Utils", function () {
             {_id: "659", v: "987"},
             {_id: "657", v: "987"}
         ]
-        expect(map(data, e => e._id)).to.deep.equal(["654", "653", "655", "659", "657"])
+        expect(unitManip.map(data, e => e._id)).to.deep.equal(["654", "653", "655", "659", "657"])
     })
     
     it("filter", function () {
@@ -43,7 +43,7 @@ describe("Utils", function () {
             {_id: "659", v: "987"},
             {_id: "655", v: "988"}
         ]
-        expect(filter(data, e => e._id === "655"))
+        expect(unitManip.filter(data, e => e._id === "655"))
             .to.deep.equal([
             {_id: "655", v: "987"},
             {_id: "655", v: "988"}

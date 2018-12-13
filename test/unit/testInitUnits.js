@@ -1,17 +1,17 @@
-import chai from 'chai'
-import {getGrandeursKeys, getShortnames, getUnits, getGrandeur, getGrandeurs} from "../../src/index"
-import {mockGrandeurs} from "../grandeurServiceMock"
+const chai = require('chai')
+const unitManip = require("../../src/index")
+const mock = require("../grandeurServiceMock")
 
 chai.should()
 
-beforeEach(async () => {
-    await mockGrandeurs()
+beforeEach(function () {
+    return mock.mockGrandeurs()
 })
 
 describe('TU Init', function () {
-    
+
     it('getShortnames ok', async function () {
-        getShortnames().should.deep.equal([
+        unitManip.getShortnames().should.deep.equal([
             "μmol",
             "mmol",
             "mol",
@@ -59,9 +59,9 @@ describe('TU Init', function () {
             "goutte"
         ])
     })
-    
+
     it('getGrandeursKeys', async function () {
-        getGrandeursKeys().should.deep.equal([
+        unitManip.getGrandeursKeys().should.deep.equal([
             "Dens",
             "Duré",
             "Ener",
@@ -75,9 +75,9 @@ describe('TU Init', function () {
             "Volu"
         ])
     })
-    
+
     it('getGrandeur ok', function () {
-        getGrandeur("Dens").should.deep.equal({
+        unitManip.getGrandeur("Dens").should.deep.equal({
             "key": "Dens",
             "label": "Densité (mol, mmol...)",
             "units": [
@@ -103,11 +103,11 @@ describe('TU Init', function () {
         })
     })
     it('getGrandeur null', function () {
-        (!getGrandeur("sdlfgij")).should.be.true
+        (!unitManip.getGrandeur("sdlfgij")).should.be.true
     })
-    
+
     it('getUnits', async function () {
-        getUnits().should.deep.equal({
+        unitManip.getUnits().should.deep.equal({
             "$": {
                 "coef": 1,
                 "grandeur": "Pri2",
@@ -380,9 +380,13 @@ describe('TU Init', function () {
             },
         })
     })
-    
+
     it('getGrandeurs', function () {
-        getGrandeurs().map(g => g.key).should.deep.equal(["Dens", "Duré", "Ener", "Long", "Mass", "Nomb",  "Pri1", "Pri2", "Surf", "Tran", "Volu"])
+        unitManip.getGrandeurs()
+            .map(function (g) {
+                return g.key
+            })
+            .should.deep.equal(["Dens", "Duré", "Ener", "Long", "Mass", "Nomb", "Pri1", "Pri2", "Surf", "Tran", "Volu"])
     })
-    
+
 })

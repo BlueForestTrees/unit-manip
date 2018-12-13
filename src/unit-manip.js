@@ -1,8 +1,8 @@
-import Fraction from "fraction.js"
+const Fraction = require("fraction.js")
 
 let ctx = null
 
-export const initUnits = grandeurs => {
+const initUnits = function (grandeurs) {
     grandeurs.sort((a, b) => a.key < b.key ? -1 : a.key > b.key ? 1 : 0)
     const grandeursKeys = []
     const units = {}
@@ -18,7 +18,7 @@ export const initUnits = grandeurs => {
             units[unit.shortname] = unit
         }
     }
-    
+
     ctx = {
         units,
         grandeurs,
@@ -27,7 +27,7 @@ export const initUnits = grandeurs => {
     }
 }
 
-export const map = (array, fct) => {
+const map = function (array, fct) {
     const length = array.length
     const res = []
     for (let i = 0; i < length; i++) {
@@ -36,7 +36,7 @@ export const map = (array, fct) => {
     return res
 }
 
-export const filter = (array, fct) => {
+const filter = function (array, fct) {
     const length = array.length
     const res = []
     for (let i = 0; i < length; i++) {
@@ -46,7 +46,7 @@ export const filter = (array, fct) => {
     }
     return res
 }
-export const find = (array, key, value) => {
+const find = function (array, key, value) {
     const length = array.length
     for (let i = 0; i < length; i++) {
         const item = array[i]
@@ -55,7 +55,7 @@ export const find = (array, key, value) => {
         }
     }
 }
-export const findIndex = (array, key, value) => {
+const findIndex = function (array, key, value) {
     const length = array.length
     for (let i = 0; i < length; i++) {
         const match = array[i][key] === value
@@ -65,27 +65,43 @@ export const findIndex = (array, key, value) => {
     }
 }
 
-export const getUnits = () => ctx.units
-export const getGrandeur = key => find(ctx.grandeurs, "key", key)
-export const getGrandeurs = () => ctx.grandeurs
-export const getGrandeursKeys = () => ctx.grandeursKeys
-export const getShortnames = () => ctx.shortnames
+const getUnits = function () {
+    return ctx.units
+}
+const getGrandeur = function (key) {
+    return find(ctx.grandeurs, "key", key)
+}
+const getGrandeurs = function () {
+    return ctx.grandeurs
+}
+const getGrandeursKeys = function () {
+    return ctx.grandeursKeys
+}
+const getShortnames = function () {
+    return ctx.shortnames
+}
 
 
-export const unit = shortname => ctx.units.hasOwnProperty(shortname) ? ctx.units[shortname] : null
-export const coef = shortname => unit(shortname).coef
-export const gKeyTobUnit = gKey => {
+const unit = function (shortname) {
+    return ctx.units.hasOwnProperty(shortname) ? ctx.units[shortname] : null
+}
+const coef = function (shortname) {
+    return unit(shortname).coef
+}
+const gKeyTobUnit = function (gKey) {
     let g = getGrandeur(gKey)
     return g && find(g.units, "coef", 1)
 }
 
-export const unitlongname = shortname => unit(shortname).name
+const unitlongname = function (shortname) {
+    return unit(shortname).name
+}
 /**
  * le code grandeur du code unité ou null
  * @param shortname
  * @returns {*}
  */
-export const grandeur = shortname => {
+const grandeur = function (shortname) {
     const u = unit(shortname)
     return u && u.grandeur
 }
@@ -93,67 +109,74 @@ export const grandeur = shortname => {
 /**
  * @returns faux, ou vrai ssi les unités sont valides et de la même grandeur
  */
-export const sameGrandeur = (leftShortname, rightShortname) => {
+const sameGrandeur = function (leftShortname, rightShortname) {
     const leftUnit = unit(leftShortname)
     const rightUnit = unit(rightShortname)
-    
+
     return leftUnit && rightUnit && leftUnit.grandeur === rightUnit.grandeur
-    
+
 }
 
 /**
  * @returns le coef pour passer d'une unité à l'autre. undefined si les unités ne sont pas compatibles.
  */
-export const unitCoef = (leftShortname, rightShortname) =>
-    sameGrandeur(leftShortname, rightShortname) ?
+const unitCoef = function (leftShortname, rightShortname) {
+    return sameGrandeur(leftShortname, rightShortname) ?
         leftShortname === rightShortname ?
             1
             : Fraction(unit(leftShortname).coef).div(unit(rightShortname).coef).valueOf()
         : undefined
+}
 
 /**
  * @returns le coef pour passer d'une quantité à l'autre. undefined si les unités ne sont pas compatibles.
  */
-export const qtUnitCoef = (leftQuantity, rightQuantity) => leftQuantity && rightQuantity
-    ? Fraction(leftQuantity.qt)
-        .div(rightQuantity.qt)
-        .mul(unitCoef(leftQuantity.unit, rightQuantity.unit)).valueOf()
-    : undefined
+const qtUnitCoef = function (leftQuantity, rightQuantity) {
+    return leftQuantity && rightQuantity
+        ? Fraction(leftQuantity.qt)
+            .div(rightQuantity.qt)
+            .mul(unitCoef(leftQuantity.unit, rightQuantity.unit)).valueOf()
+        : undefined
+}
 
 /**
  *
  * @param quantity
  * @returns la quantité en unité de base. (10kg => 10000g)
  */
-export const toBaseQuantity = quantity => {
+const toBaseQuantity = function (quantity) {
     return {
         qt: quantity.qt * coef(quantity.unit),
         unit: gKeyTobUnit(grandeur(quantity.unit)).shortname
     }
 }
 
-export const toBqtG = quantity => ({
-    bqt: baseQt(quantity),
-    g: grandeur(quantity.unit)
-})
+const toBqtG = function (quantity) {
+    return {
+        bqt: baseQt(quantity),
+        g: grandeur(quantity.unit)
+    }
+}
 
-export const bqtGToQtUnit = ({bqt, g}) => {
+const bqtGToQtUnit = function ({bqt, g}) {
     const bUnit = gKeyTobUnit(g)
     return {
         qt: bqt, unit: bUnit && bUnit.shortname || `${g}!`
     }
 }
 
-export const changeUnit = (quantity, newUnit) => quantity.qt * unitCoef(quantity.unit, newUnit)
+const changeUnit = function (quantity, newUnit) {
+    return quantity.qt * unitCoef(quantity.unit, newUnit)
+}
 
-export const grandeurFromShortname = shortname => {
+const grandeurFromShortname = function (shortname) {
     const u = unit(shortname)
     return u && find(ctx.grandeurs, "key", u.grandeur)
 }
-export const bestQuantity = (quantity) => {
+const bestQuantity = function (quantity) {
     const grandeur = grandeurFromShortname(quantity.unit)
     if (!grandeur) return {qt: quantity.qt, unit: quantity.unit + "!"}
-    
+
     const units = grandeur.units
     const currentUnit = unit(quantity.unit)
     const currentUnitIndex = findIndex(units, "shortname", quantity.unit)
@@ -171,25 +194,65 @@ export const bestQuantity = (quantity) => {
             return bestQuantity({qt: quantity.qt / downingCoef, unit: lowerUnit.shortname})
         }
     }
-    
+
     return {qt: bestRound(quantity.qt), unit: quantity.unit}
 }
 
-export const grandeurOfUnitShortname = shortname => grandeurByName(unit(shortname).grandeur)
-export const grandeurByName = grandeurName => ({[grandeurName]: getGrandeurs()[grandeurName]})
+const grandeurOfUnitShortname = function (shortname) {
+    return grandeurByName(unit(shortname).grandeur)
+}
+const grandeurByName = function (grandeurName) {
+    return {[grandeurName]: getGrandeurs()[grandeurName]}
+}
 
 
-const precisionRound = (number, precision) => {
+const precisionRound = function (number, precision) {
     const factor = Math.pow(10, precision)
     return Math.round(number * factor) / factor
 }
-export const bestRound = v =>
-    v < 1 ? precisionRound(v, 3)
+const bestRound = function (v) {
+    return v < 1 ? precisionRound(v, 3)
         :
         v < 10 ? precisionRound(v, 2)
             :
             v < 100 ? precisionRound(v, 1)
                 :
                 Math.round(v)
+}
 
-export const baseQt = quantity => quantity.qt * coef(quantity.unit)
+const baseQt = function (quantity) {
+    return quantity.qt * coef(quantity.unit)
+}
+
+module.exports = {
+    map:map,
+    filter:filter,
+    find:find,
+    findIndex:findIndex,
+    initUnits:initUnits,
+    unit:unit,
+    coef:coef,
+    getShortnames:getShortnames,
+    getGrandeursKeys:getGrandeursKeys,
+    getGrandeurs:getGrandeurs,
+    getGrandeur:getGrandeur,
+    getUnits:getUnits,
+    baseQt: baseQt,
+    bestRound: bestRound,
+    precisionRound: precisionRound,
+    grandeurByName: grandeurByName,
+    grandeurOfUnitShortname: grandeurOfUnitShortname,
+    bestQuantity:bestQuantity,
+    grandeurFromShortname:grandeurFromShortname,
+    changeUnit:changeUnit,
+    bqtGToQtUnit:bqtGToQtUnit,
+    toBqtG:toBqtG,
+    toBaseQuantity:toBaseQuantity,
+    qtUnitCoef:qtUnitCoef,
+    unitCoef:unitCoef,
+    sameGrandeur:sameGrandeur,
+    grandeur:grandeur,
+    unitlongname:unitlongname,
+    gKeyTobUnit:gKeyTobUnit,
+
+}

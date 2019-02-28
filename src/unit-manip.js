@@ -63,6 +63,7 @@ const findIndex = function (array, key, value) {
             return i
         }
     }
+    return -1
 }
 
 const getUnits = function () {
@@ -225,34 +226,34 @@ const baseQt = function (quantity) {
 }
 
 module.exports = {
-    map:map,
-    filter:filter,
-    find:find,
-    findIndex:findIndex,
-    initUnits:initUnits,
-    unit:unit,
-    coef:coef,
-    getShortnames:getShortnames,
-    getGrandeursKeys:getGrandeursKeys,
-    getGrandeurs:getGrandeurs,
-    getGrandeur:getGrandeur,
-    getUnits:getUnits,
+    map: map,
+    filter: filter,
+    find: find,
+    findIndex: findIndex,
+    initUnits: initUnits,
+    unit: unit,
+    coef: coef,
+    getShortnames: getShortnames,
+    getGrandeursKeys: getGrandeursKeys,
+    getGrandeurs: getGrandeurs,
+    getGrandeur: getGrandeur,
+    getUnits: getUnits,
     baseQt: baseQt,
     bestRound: bestRound,
     precisionRound: precisionRound,
     grandeurByName: grandeurByName,
     grandeurOfUnitShortname: grandeurOfUnitShortname,
-    bestQuantity:bestQuantity,
-    grandeurFromShortname:grandeurFromShortname,
-    changeUnit:changeUnit,
-    bqtGToQtUnit:bqtGToQtUnit,
-    toBqtG:toBqtG,
-    toBaseQuantity:toBaseQuantity,
-    qtUnitCoef:qtUnitCoef,
-    unitCoef:unitCoef,
-    sameGrandeur:sameGrandeur,
-    grandeur:grandeur,
-    unitlongname:unitlongname,
-    gKeyTobUnit:gKeyTobUnit,
+    bestQuantity: bestQuantity,
+    grandeurFromShortname: grandeurFromShortname,
+    changeUnit: changeUnit,
+    bqtGToQtUnit: bqtGToQtUnit,
+    toBqtG: toBqtG,
+    toBaseQuantity: toBaseQuantity,
+    qtUnitCoef: qtUnitCoef,
+    unitCoef: unitCoef,
+    sameGrandeur: sameGrandeur,
+    grandeur: grandeur,
+    unitlongname: unitlongname,
+    gKeyTobUnit: gKeyTobUnit,
 
 }

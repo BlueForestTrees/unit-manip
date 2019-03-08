@@ -1,7 +1,7 @@
 const chai = require('chai')
 const unitManip = require("../../src/index")
 const mock = require("../grandeurServiceMock")
-
+const Fraction = require("fraction.js")
 chai.should()
 
 beforeEach(function () {
@@ -9,7 +9,16 @@ beforeEach(function () {
 })
 
 describe('TU Init', function () {
+    describe('long tests', function () {
+        it('multiply', function () {
+            (Fraction(1).mul(410.144927536).mul(2.07)).valueOf().should.equal(849);
+            (0.23923445 * 3600 * 1000).should.equal(861244.02);
 
+            (Fraction(1, 2).mul(Fraction(1, 2))).valueOf().should.equal(0.25);
+
+            Fraction(0.1).mul(0.2).valueOf().should.equal(0.02);
+        })
+    })
     it('getShortnames ok', async function () {
         unitManip.getShortnames().should.deep.equal([
             "μmol",

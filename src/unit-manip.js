@@ -225,6 +225,7 @@ const baseQt = function (quantity) {
     return quantity.qt * coef(quantity.unit)
 }
 
+
 module.exports = {
     map: map,
     filter: filter,

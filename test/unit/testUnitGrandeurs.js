@@ -13,6 +13,9 @@ beforeEach(function() {
 describe('TU Grandeurs', function () {
     
     describe('best round', function () {
+        it('-2 -2', function () {
+            unitManip.bestRound(-2).should.equal(-2)
+        })
         it('999 999', function () {
             unitManip.bestRound(999).should.equal(999)
         })
@@ -243,6 +246,9 @@ describe('TU Grandeurs', function () {
         })
         it('0.0000001kg => 0.1mg', function () {
             expect(unitManip.bestQuantity({qt: 0.0000001, unit: "kg"})).to.deep.equal({qt: 0.1, unit: "mg"})
+        })
+        it('-2kg => -2mg', function () {
+            expect(unitManip.bestQuantity({qt: -2, unit: "kg"})).to.deep.equal({qt: -2, unit: "kg"})
         })
     })
     

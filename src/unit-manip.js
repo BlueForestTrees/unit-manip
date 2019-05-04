@@ -178,6 +178,10 @@ const bestQuantity = function (quantity) {
     const grandeur = grandeurFromShortname(quantity.unit)
     if (!grandeur) return {qt: quantity.qt, unit: quantity.unit + "!"}
 
+    if (quantity.qt < 0) {
+        return invert(bestQuantity(invert(quantity)))
+    }
+
     const units = grandeur.units
     const currentUnit = unit(quantity.unit)
     const currentUnitIndex = findIndex(units, "shortname", quantity.unit)
@@ -197,6 +201,10 @@ const bestQuantity = function (quantity) {
     }
 
     return {qt: bestRound(quantity.qt), unit: quantity.unit}
+}
+
+const invert = function (quantity) {
+    return {...quantity, qt: -quantity.qt}
 }
 
 const grandeurOfUnitShortname = function (shortname) {

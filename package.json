@@ -5,9 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "test": "node --version && mocha --exit --recursive test",
-    "build": "rimraf dist && yarn run test",
-    "prepublishOnly": "npm version patch && npm run build",
-    "npmpublish": "npm publish"
+    "build": "rimraf dist && yarn run test"
   },
   "repository": {
     "type": "git",

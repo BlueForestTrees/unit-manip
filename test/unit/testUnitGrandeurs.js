@@ -40,8 +40,11 @@ describe('TU Grandeurs', function () {
         it('1 Mass 1 g', function () {
             expect(unitManip.bqtGToQtUnit({bqt: 1, g: "Mass"})).to.deep.equal({qt: 1, unit: "g"})
         })
+        it('1 Mass 1 g 2 coef', function () {
+            expect(unitManip.bqtGToQtUnit({bqt: 1, g: "Mass"}, 2)).to.deep.equal({qt: 2, unit: "g"})
+        })
         it('0.001 Mass 0.001 g', function () {
-            expect(unitManip.bqtGToQtUnit({bqt: "0.001", g: "Volu"})).to.deep.equal({qt: "0.001", unit: "m3"})
+            expect(unitManip.bqtGToQtUnit({bqt: "0.001", g: "Volu"})).to.deep.equal({qt: 0.001, unit: "m3"})
         })
     })
     

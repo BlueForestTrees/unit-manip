@@ -159,10 +159,10 @@ const toBqtG = function (quantity) {
     }
 }
 
-const bqtGToQtUnit = function ({bqt, g}) {
+const bqtGToQtUnit = function ({bqt, g}, coef = 1) {
     const bUnit = gKeyTobUnit(g)
     return {
-        qt: bqt, unit: bUnit && bUnit.shortname || `${g}!`
+        qt: bqt * coef, unit: bUnit && bUnit.shortname || `${g}!`
     }
 }
 

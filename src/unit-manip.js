@@ -48,10 +48,26 @@ const filter = function (array, fct) {
 }
 const find = function (array, key, value) {
     const length = array.length
-    for (let i = 0; i < length; i++) {
-        const item = array[i]
-        if (item[key] === value) {
-            return item
+    if (typeof key === 'string') {
+        for (let i = 0; i < length; i++) {
+            const item = array[i]
+            if (item[key] === value) {
+                return item
+            }
+        }
+    } else if (typeof key === 'object') {
+        for (let i = 0; i < length; i++) {
+            const item = array[i]
+            let areDifferent = null
+            for (let k in key) {
+                if (item[k] !== key[k]) {
+                    areDifferent = true
+                    break
+                }
+            }
+            if (!areDifferent) {
+                return item
+            }
         }
     }
 }

@@ -24,7 +24,7 @@ describe("Utils", function () {
         expect(unitManip.findIndex(data, "_id", "999")).to.equal(-1)
     })
     
-    it("find", function () {
+    it("find kv", function () {
         const data = [
             {_id: "654", v: "987"},
             {_id: "653", v: "987"},
@@ -33,6 +33,17 @@ describe("Utils", function () {
             {_id: "657", v: "987"}
         ]
         expect(unitManip.find(data, "_id", "655")).to.deep.equal({_id: "655", v: "987"})
+    })
+
+    it("find object", function () {
+        const data = [
+            {_id: "654", v: "7"},
+            {_id: "653", v: "987"},
+            {_id: "655", v: "987"},
+            {_id: "659", v: "987"},
+            {_id: "657", v: "987"}
+        ]
+        expect(unitManip.find(data, {_id: "653", v: "987"})).to.deep.equal({_id: "653", v: "987"})
     })
     
     it("map", function () {
